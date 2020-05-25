@@ -1,7 +1,8 @@
-from flask import Flask
+from flask import current_app as app
 from flask_mail import Mail, Message
+import random
+from functools import reduce
 
-app = Flask(__name__)
 # 引入上级目录
 import sys
 sys.path.append('../')
@@ -12,12 +13,15 @@ app.config.from_object(config_mail.Config())
 # 初始化
 mail = Mail(app)
 # 发送邮件接口
-@app.route('/', strict_slashes = False)
-def register():
+@app.route('/sendmail', strict_slashes = False)
+def send_mail():
     msg = Message('hello world', sender='1562555013@qq.com', recipients=['qinyj12@126.com'])
-    msg.body = 'hello world!'
+    list_num = ([random.randint(0,9) for _ in range(4)])
+    def to_str(x):
+    	return str(x)
+    list_str = list(map(to_str, list_num))
+    random_num = ''.join(list_str)
+    msg.body = random_num
     mail.send(msg)
     return '邮件发送成功！'
 
-if __name__ == '__main__':
-    app.run(host = '0.0.0.0',port = 5000)
