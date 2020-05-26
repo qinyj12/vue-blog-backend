@@ -37,14 +37,19 @@
 # 	updated_time = Column(String(20), nullable = True)
 
 
-# engine = create_engine('sqlite:///../database/database.db')
-# DBSession = sessionmaker(bind = engine)
+# engine = create_engine('sqlite:///../database/database.db', connect_args={'check_same_thread': False})
+# DBSession = sessionmaker(engine)
 # session = DBSession()
 
-# a = session.query(User).filter(User.nickname == 'firstman').first()
+# a = session.query(User).filter(User.nickname == 'dog').all()
 # if a:
-# 	print(a.id)
+# 	print(a[0].id)
 # 	session.close()
 # else:
 # 	print('not found')
 # 	session.close()
+# 转换时间戳
+import time, datetime
+timeStamp = 1590506090
+dateArray = datetime.datetime.fromtimestamp(timeStamp)
+print(dateArray)
