@@ -13,5 +13,5 @@ def register():
 		email = request.form.get('email')
 		password = request.form.get('password')
 		mailcode = request.form.get('code')
-	from api import orm
-	return(orm.sign_up(nickname, email, password, mailcode))
+	from orm import orm_signup
+	return(orm_signup.sign_up(nickname, email, password, mailcode))

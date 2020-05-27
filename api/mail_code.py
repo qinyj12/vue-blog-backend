@@ -23,9 +23,15 @@ def send_mail():
 	list_num = ([random.randint(0,9) for _ in range(4)]) # 4位随机数组成list
 	list_str = list(map(lambda x : str(x), list_num)) # 随机数转字符串
 	random_num = ''.join(list_str) # 组合字符串
-	msg.html = render_template('temp_email.html', name = re.split(r'@', user_mail)[0], code = random_num) # 提取user_mail中@之前的部分
-	try:
-		mail.send(msg)
-		return '已发送至 %s' % user_mail
-	except Exception as e:
-		return e
+	# 引入外部模块，存储验证码到数据库
+	from orm import orm_code
+	try_save_code = orm_code.save_mail_code(user_mail, random_num)
+	if try_save_code == 'codeSaved':
+		msg.html = render_template('temp_email.html', name = re.split(r'@', user_mail)[0], code = random_num) # 提取user_mail中@之前的部分
+		try:
+			mail.send(msg)
+			return '已发送至 %s' % user_mail
+		except Exception as e:
+			return e
+	else:
+		return 'i dont know'
