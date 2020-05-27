@@ -33,7 +33,7 @@ session = DBSession()
 #注册
 def sign_up(func_inner_name, func_inner_email, func_inner_password, func_inner_code):
 		# 在验证码表里找到这个email
-		target = session.query(Mailcode).filter(Mailcode.email == func_inner_email).all()[-1]
+		target = session.query(Mailcode).filter(Mailcode.email == func_inner_email).order_by(Mailcode.timestamp.desc()).all()[0]
 		# 如果存在
 		if target:
 			# 验证用户输入的code是否正确
