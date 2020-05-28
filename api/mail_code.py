@@ -1,7 +1,6 @@
 from flask import current_app as app
 from flask import request, render_template
 from flask_mail import Mail, Message
-import random
 import re
 from functools import reduce
 
@@ -20,18 +19,19 @@ def send_mail():
 	if request.method == 'POST':
 		user_mail = request.form.get('email')
 	msg = Message('hello world', sender='1562555013@qq.com', recipients=[user_mail])
-	list_num = ([random.randint(0,9) for _ in range(4)]) # 4位随机数组成list
-	list_str = list(map(lambda x : str(x), list_num)) # 随机数转字符串
-	random_num = ''.join(list_str) # 组合字符串
 	# 引入外部模块，存储验证码到数据库
 	from orm import orm_code
-	try_save_code = orm_code.save_mail_code(user_mail, random_num)
-	if try_save_code == 'codeSaved':
-		msg.html = render_template('temp_email.html', name = re.split(r'@', user_mail)[0], code = random_num) # 提取user_mail中@之前的部分
+	func_inner_result = orm_code.save_mail_code(user_mail)
+	# 尝试转成int，如果成功的话
+	try:
+		int(func_inner_result)
+		msg.html = render_template('temp_email.html', name = re.split(r'@', user_mail)[0], code = func_inner_result) # 提取user_mail中@之前的部分
+		# 发邮件
 		try:
 			mail.send(msg)
 			return '已发送至 %s' % user_mail
+		# 有可能邮箱配置会出现问题
 		except Exception as e:
-			return e
-	else:
-		return 'i dont know'
+			return str(e)
+	except:
+		return func_inner_result

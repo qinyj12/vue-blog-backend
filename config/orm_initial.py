@@ -14,6 +14,7 @@ def initialize_orm():
         password = Column(String(20), nullable = False)
         timestamp = Column(Integer, nullable = False)
         format_updated_time = Column(String(20), nullable = True)
+        if_used = Column(String(20), server_default = '0', nullable = False)
     # Mailcode表
     class Mailcode(Base):
         __tablename__ = 'mailcode'
