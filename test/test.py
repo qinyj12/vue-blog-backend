@@ -19,12 +19,18 @@ import sys
 sys.path.append('../')
 from config import orm_initial
 
-# session = orm_initial.initialize_orm()['dict_session']
-# Mailcode = orm_initial.initialize_orm()['dict_mailcode']
-# User = orm_initial.initialize_orm()['dict_user']
-# a = session.query(Mailcode).filter(Mailcode.email == '156255501@qq.com').all()[-1]
-
-print(orm_initial.initialize_orm())
+session = orm_initial.initialize_orm()['dict_session']
+Mailcode = orm_initial.initialize_orm()['dict_mailcode']
+User = orm_initial.initialize_orm()['dict_user']
+# a = session.query(Mailcode).filter(Mailcode.email == '1562555013@qq.com').all()[-1]
+session.add(Mailcode(email = '1562555013@qq.com',
+                             code = '3412',
+                             timestamp = '1590676017',
+                             format_time = '2020-05-28 22:26:57',
+                             if_used = 1))
+session.commit()
+session.close()
+# print(orm_initial.initialize_orm())
 
 # 转换时间戳
 # import time, datetime

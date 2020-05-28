@@ -14,7 +14,7 @@ def initialize_orm():
         password = Column(String(20), nullable = False)
         timestamp = Column(Integer, nullable = False)
         format_updated_time = Column(String(20), nullable = True)
-        if_used = Column(String(20), server_default = '0', nullable = False)
+        
     # Mailcode表
     class Mailcode(Base):
         __tablename__ = 'mailcode'
@@ -23,6 +23,7 @@ def initialize_orm():
         code = Column(String(20), nullable = False) # 四位随机码
         timestamp = Column(Integer, nullable = False) # 录入数据的时间戳
         format_time = Column(String(20), nullable = False) # 格式化时间戳
+        if_used = Column(Integer, server_default = '0', nullable = False)
     # 这里要注意路径是datebase/database.db
     engine = create_engine('sqlite:///database/database.db', connect_args = {'check_same_thread': False})
     DBSession = sessionmaker(engine)
