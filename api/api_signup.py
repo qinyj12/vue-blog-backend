@@ -1,8 +1,9 @@
+# -*- coding: UTF-8 -*-
 from flask import current_app as app
 from flask import request
 
-@app.route('/register', methods = ['GET','POST'])
-def register():
+@app.route('/signup', methods = ['GET','POST'])
+def signup():
 	if request.method == 'GET':
 		nickname = request.args.get('nickname')
 		email = request.args.get('email')

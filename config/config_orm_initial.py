@@ -25,7 +25,7 @@ def initialize_orm():
         format_time = Column(String(20), nullable = False) # 格式化时间戳
         if_used = Column(Integer, server_default = '0', nullable = False)
     # 这里要注意路径是datebase/database.db
-    engine = create_engine('sqlite:///database/database.db', connect_args = {'check_same_thread': False})
+    engine = create_engine('sqlite:///../database/database.db', connect_args = {'check_same_thread': False})
     DBSession = sessionmaker(engine)
     session = DBSession()
 

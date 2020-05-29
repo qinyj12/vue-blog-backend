@@ -17,21 +17,16 @@
 # 调用外部接口查找数据库
 import sys
 sys.path.append('../')
-from config import orm_initial
+from config import config_orm_initial
+from sqlalchemy import exists, and_
+session = config_orm_initial.initialize_orm()['dict_session']
+Mailcode = config_orm_initial.initialize_orm()['dict_mailcode']
+User = config_orm_initial.initialize_orm()['dict_user']
 
-session = orm_initial.initialize_orm()['dict_session']
-Mailcode = orm_initial.initialize_orm()['dict_mailcode']
-User = orm_initial.initialize_orm()['dict_user']
-# a = session.query(Mailcode).filter(Mailcode.email == '1562555013@qq.com').all()[-1]
-session.add(Mailcode(email = '1562555013@qq.com',
-                             code = '3412',
-                             timestamp = '1590676017',
-                             format_time = '2020-05-28 22:26:57',
-                             if_used = 1))
-session.commit()
-session.close()
-# print(orm_initial.initialize_orm())
-
+a = session.query(exists().where(and_(Mailcode.email == 'qinyj12@126.com',
+                                 Mailcode.if_used == '0')
+    )).scalar()
+print(a)
 # 转换时间戳
 # import time, datetime
 # timeStamp = 1590506090
@@ -49,3 +44,31 @@ session.close()
 # 	print('except:', e)
 # finally:
 # 	print('finally...')
+# 密码强度，总长度>=9，有数字，有英文
+# def checkio(s):
+#     fs = ''.join(filter(str.isalnum, s)) # keep only letters and digits
+#     return (
+#             len(fs) >= 1        # There is at least one letter or digit
+#         and len(s)  >= 10       # ... and there are at least 10 characters
+#         and not fs.isalpha()    # ... and there is at least one digit
+#         and not fs.isdigit()    # ... and there is at least one letter
+#         and not fs.islower()    # ... and not all letters are lowercase
+#         and not fs.isupper()    # ... and not all letters are uppercase
+#     )
+# def mycheck(s):
+#     fs = ''.join(filter(str.isalnum, s)) # keep only letters and digits
+#     return (
+#             len(fs) >= 1        # There is at least one letter or digit
+#             and len(s) >= 9       # ... and there are at least 10 characters
+#             and not fs.isalpha()    # ... and there is at least one digit
+#             and not fs.isdigit()    # ... and there is at least one letter
+#     )
+# 测试try
+# try:
+#     if 1 == 0:
+#         c = 'yes'
+#     else:
+#         c = 'not'
+# except Exception as e:
+#     c = 'no'
+# print(c)
