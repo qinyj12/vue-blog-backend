@@ -5,7 +5,7 @@
 # import sqlite3
 # conn = sqlite3.connect('../database/database.db')
 # cursor = conn.cursor()
-# cursor.execute('ALTER TABLE user ADD column password INTEGER')
+# cursor.execute('ALTER TABLE mailcode ADD column purpose STRING(20)')
 # cursor.execute('ALTER TABLE user RENAME COLUMN name TO nickname')
 # cursor.close()
 # conn.commit()
@@ -18,15 +18,38 @@
 import sys
 sys.path.append('../')
 from config import config_orm_initial
-from sqlalchemy import exists, and_
+from sqlalchemy import exists, and_, or_
 session = config_orm_initial.initialize_orm()['dict_session']
 Mailcode = config_orm_initial.initialize_orm()['dict_mailcode']
 User = config_orm_initial.initialize_orm()['dict_user']
+# import time
+# now_time = round(time.time())
+# try:
+#     a = session.query(Mailcode
+#         ).filter(and_(Mailcode.email == 'qinyj12@126.com',
+#                   now_time - Mailcode.timestamp > 60,
+#                   Mailcode.if_used == '1',
+#                   Mailcode.purpose == 'signup')
+#         ).all()[-1]
+#     session.close()
+# except:
+#     a = False
+# if a:
+#     print('yes')
+# else:
+#     print('no')
+email = 'qinyj12@126.com'
 
-a = session.query(exists().where(and_(Mailcode.email == 'qinyj12@126.com',
-                                 Mailcode.if_used == '0')
-    )).scalar()
-print(a)
+
+inner_result = session.query(User).filter(
+        User.email == '1562555013@qq.com',
+        User.password == 'qyj931101'
+).all()
+if inner_result:
+    print(inner_result[-1].email)
+else:
+    print('not found')
+
 # 转换时间戳
 # import time, datetime
 # timeStamp = 1590506090

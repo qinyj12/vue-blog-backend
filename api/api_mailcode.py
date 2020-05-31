@@ -21,7 +21,7 @@ def send_mail():
 	msg = Message('hello world', sender='1562555013@qq.com', recipients=[user_mail])
 	# 引入外部模块，存储验证码到数据库
 	from orm import orm_code
-	func_inner_result = orm_code.save_mail_code(user_mail)
+	func_inner_result = orm_code.save_mail_code(user_mail, 'signup')
 	# 尝试转成int，如果成功的话
 	try:
 		int(func_inner_result)

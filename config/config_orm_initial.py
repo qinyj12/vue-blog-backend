@@ -24,6 +24,8 @@ def initialize_orm():
         timestamp = Column(Integer, nullable = False) # 录入数据的时间戳
         format_time = Column(String(20), nullable = False) # 格式化时间戳
         if_used = Column(Integer, server_default = '0', nullable = False)
+        purpose = Column(String(20), nullable = False)
+
     # 这里要注意路径是datebase/database.db
     engine = create_engine('sqlite:///../database/database.db', connect_args = {'check_same_thread': False})
     DBSession = sessionmaker(engine)

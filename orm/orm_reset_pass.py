@@ -1,14 +1,38 @@
 # -*- coding: UTF-8 -*-
-# 从config/config_orm_initial引入
+import time
 from config import config_orm_initial
+
+# 从config/config_orm_initial引入
 session = config_orm_initial.initialize_orm()['dict_session']
 User = config_orm_initial.initialize_orm()['dict_user']
 
 # 重设密码
 def reset_password(input_email, input_code, input_new_pass):
-    # from sqlalchemy import exists
-    inner_user_exist = session.query(exists().where(User.email == input_email)).scalar()
-    inner_code_exist = session.query(exists().where(Mailcode.email == input_email)).scalar()
+
+    # 先看能不能找到这个user，如果找不到就是None
+    target_user = session.query(User).filter(User.email == input_email).first()
+
+    # 再看能不能找到匹配的验证码（email，timestamp，purpose，if_used）
+    target_code_list = session.query(Mailcode).filter(
+        Mailcode.email == input_email,
+        Mailcode.purpose == 'reset_password',
+        Mailcode.if_used == 0,
+        time.time() - Mailcode.timestamp < 1800
+    ).all()
+
+    # 如果找到这个user
+    try:
+        # 如果找到这个user
+        # 如果找到匹配的验证码
+            # 输入的验证码和找到的验证码是否相等，如果相等
+                # 重新设置target_user的密码
+            # 如果不相等
+                # 返回验证码输入错误
+        # 如果找不到匹配的验证码
+            # 返回还没有发放验证码或者验证码过期或者验证码已经被使用过
+
+
+
 
     # 如果存在这个user，并且存在这个email的code
     if inner_user_exist and inner_code_exist:
@@ -34,13 +58,13 @@ def reset_password(input_email, input_code, input_new_pass):
                 session.rollback()
                 session.close()
                 return str(e)
-        elif !judge_if_notused:
+        elif bool(1 - judge_if_notused):
             return 'code used'
-        elif !judge_if_notoverdue:
+        elif bool(1 - judge_if_notoverdue):
             return 'code overdue'
         else:
             return 'code error'
-    elif !inner_user_exist:
+    elif bool(1 - inner_user_exist):
         return 'email not exists'
     else:
         
