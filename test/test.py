@@ -31,11 +31,13 @@ target_code_list = session.query(Mailcode).filter(
     Mailcode.email == 'qinyj12@126.com',
     # Mailcode.purpose == 'reset_password',
     Mailcode.if_used == 0,
-    time.time() - Mailcode.timestamp < 1800
+    time.time() - Mailcode.timestamp < 180000
 ).all()
 
-print(target_code_list)
-
+if target_code_list:
+    print('yes')
+else:
+    print('no')
 # 转换时间戳
 # import time, datetime
 # timeStamp = 1590506090
