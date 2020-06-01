@@ -15,40 +15,26 @@
 # print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 # 调用外部接口查找数据库
+import time
 import sys
 sys.path.append('../')
-from config import config_orm_initial
+from config import config_test_orm
 from sqlalchemy import exists, and_, or_
-session = config_orm_initial.initialize_orm()['dict_session']
-Mailcode = config_orm_initial.initialize_orm()['dict_mailcode']
-User = config_orm_initial.initialize_orm()['dict_user']
-# import time
-# now_time = round(time.time())
-# try:
-#     a = session.query(Mailcode
-#         ).filter(and_(Mailcode.email == 'qinyj12@126.com',
-#                   now_time - Mailcode.timestamp > 60,
-#                   Mailcode.if_used == '1',
-#                   Mailcode.purpose == 'signup')
-#         ).all()[-1]
-#     session.close()
-# except:
-#     a = False
-# if a:
-#     print('yes')
-# else:
-#     print('no')
+session = config_test_orm.initialize_orm()['dict_session']
+Mailcode = config_test_orm.initialize_orm()['dict_mailcode']
+User = config_test_orm.initialize_orm()['dict_user']
+
 email = 'qinyj12@126.com'
 
 
-inner_result = session.query(User).filter(
-        User.email == '1562555013@qq.com',
-        User.password == 'qyj931101'
+target_code_list = session.query(Mailcode).filter(
+    Mailcode.email == 'qinyj12@126.com',
+    # Mailcode.purpose == 'reset_password',
+    Mailcode.if_used == 0,
+    time.time() - Mailcode.timestamp < 1800
 ).all()
-if inner_result:
-    print(inner_result[-1].email)
-else:
-    print('not found')
+
+print(target_code_list)
 
 # 转换时间戳
 # import time, datetime

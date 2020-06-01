@@ -27,7 +27,7 @@ def initialize_orm():
         purpose = Column(String(20), nullable = False)
 
     # 这里要注意路径是datebase/database.db
-    engine = create_engine('sqlite:///database/database.db', connect_args = {'check_same_thread': False})
+    engine = create_engine('sqlite:///../database/database.db', connect_args = {'check_same_thread': False})
     DBSession = sessionmaker(engine)
     session = DBSession()
 
