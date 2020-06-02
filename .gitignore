@@ -6,7 +6,7 @@ node_modules
 __pycache__/
 
 #cofig files
-/config/
+config/
 
 # local env files
 .env.local
