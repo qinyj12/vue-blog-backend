@@ -46,7 +46,7 @@ new Vue({
     methods: {
         login() {
             // 跨域发送cookie
-            // axios.defaults.withCredentials = true;
+            axios.defaults.withCredentials = true;
             // 调用后端接口
             let data = {'email':this.inputEmail, 'password':this.inputPass}
             axios

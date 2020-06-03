@@ -14,8 +14,8 @@ def login():
     # return(orm_login.login(email, password))
 
     resp = make_response()
-    resp.headers['Access-Control-Allow-Credentials'] = 'true'
-    # resp.headers['Access-Control-Allow-Origin'] = request.environ['HTTP_ORIGIN']
+    resp.headers['Access-Control-Allow-Credentials'] = true
+    resp.headers['Access-Control-Allow-Origin'] = request.environ['HTTP_ORIGIN']
     # resp.data = orm_login.login(email, password)
     resp.data = 'yes'
     return resp
