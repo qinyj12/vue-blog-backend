@@ -24,20 +24,27 @@ session = config_test_orm.initialize_orm()['dict_session']
 Mailcode = config_test_orm.initialize_orm()['dict_mailcode']
 User = config_test_orm.initialize_orm()['dict_user']
 
-email = 'qinyj12@126.com'
+func_inner_email = 'qinyj12@126.com'
+
+inner_result = session.query(User).filter(User.email == func_inner_email).first()
+
+print(inner_result)
 
 
-target_code_list = session.query(Mailcode).filter(
-    Mailcode.email == 'qinyj12@126.com',
-    # Mailcode.purpose == 'reset_password',
-    Mailcode.if_used == 0,
-    time.time() - Mailcode.timestamp < 180000
-).all()
+# 多条件判断
+# email = 'qinyj12@126.com'
 
-if target_code_list:
-    print('yes')
-else:
-    print('no')
+# target_code_list = session.query(Mailcode).filter(
+#     Mailcode.email == 'qinyj12@126.com',
+#     # Mailcode.purpose == 'reset_password',
+#     Mailcode.if_used == 0,
+#     time.time() - Mailcode.timestamp < 180000
+# ).all()
+
+# if target_code_list:
+#     print('yes')
+# else:
+#     print('no')
 # 转换时间戳
 # import time, datetime
 # timeStamp = 1590506090

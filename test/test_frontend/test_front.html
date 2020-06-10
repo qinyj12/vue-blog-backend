@@ -47,11 +47,13 @@ new Vue({
         login() {
             // 跨域发送cookie
             axios.defaults.withCredentials = true;
+
+            let data = new FormData();
+            data.append('email', this.inputEmail);
+            data.append('password', this.inputPass);
+
             // 调用后端接口
-            let data = {'email':this.inputEmail, 'password':this.inputPass}
-            axios
-                .post('http://127.0.0.1:5000/login', data)
-                    .then(response => {console.log(response)})
+            axios.post('http://127.0.0.1:5000/login', data).then(response => {console.log(response)})
         }
     },
 })

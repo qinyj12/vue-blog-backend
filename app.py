@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_pyfile('./config/config_flask.py')
-CORS(app)
+CORS(app, supports_credentials=True)
 
 with app.app_context():
 	from api import say_hello
