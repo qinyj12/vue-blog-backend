@@ -15,9 +15,9 @@ def login(func_inner_email, func_inner_password):
 	try:
 		inner_result = session.query(User).filter(
 			User.email == func_inner_email,
-			# User.password == func_inner_password
+			User.password == func_inner_password
 		).first()
 		return inner_result.email
 
 	except Exception as e:
-		return str(e)
+		return 'ERROR OR NOFOUND'

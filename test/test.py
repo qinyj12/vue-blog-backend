@@ -15,21 +15,20 @@
 # print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 # 调用外部接口查找数据库
-import time
-import sys
-sys.path.append('../')
-from config import config_test_orm
-from sqlalchemy import exists, and_, or_
-session = config_test_orm.initialize_orm()['dict_session']
-Mailcode = config_test_orm.initialize_orm()['dict_mailcode']
-User = config_test_orm.initialize_orm()['dict_user']
+# import time
+# import sys
+# sys.path.append('../')
+# from config import config_test_orm
+# from sqlalchemy import exists, and_, or_
+# session = config_test_orm.initialize_orm()['dict_session']
+# Mailcode = config_test_orm.initialize_orm()['dict_mailcode']
+# User = config_test_orm.initialize_orm()['dict_user']
 
-func_inner_email = 'qinyj12@126.com'
+# func_inner_email = 'qinyj12@126.com'
 
-inner_result = session.query(User).filter(User.email == func_inner_email).first()
+# inner_result = session.query(User).filter(User.email == func_inner_email).first()
 
-print(inner_result)
-
+# print(inner_result)
 
 # 多条件判断
 # email = 'qinyj12@126.com'
