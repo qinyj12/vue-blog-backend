@@ -27,6 +27,9 @@
             <button @click="login">登录</button>
         </div>
         <div>
+            <button @click="logout">注销</button>
+        </div>
+        <div>
             <span>结果：</span>
             <span>{{result}}</span>
         </div>
@@ -43,6 +46,30 @@ new Vue({
         inputPass: null,
         result: null
     },
+    mounted() {
+        // 跨域发送cookie
+        axios.defaults.withCredentials = true;
+        // 调用后端接口
+        axios
+            .post('http://127.0.0.1:5000/getsession')
+                .then(
+                    response => {
+                        console.log(response);
+                        if (response.data.status == 200) {
+                            // 从后端取得当前session用户，赋值给currentUser
+                            this.currentUser = response.data.result;
+
+                        // 如果是404
+                        } else if (response.data.status == 404) {
+                            this.currentUser = 'NOT FOUND';
+
+                        // 其他情况
+                        } else {
+                            alert('ERROR')
+                        }
+                    }
+                )
+    },
     methods: {
         login() {
             // 跨域发送cookie
@@ -53,7 +80,16 @@ new Vue({
             data.append('password', this.inputPass);
 
             // 调用后端接口
-            axios.post('http://127.0.0.1:5000/login', data).then(response => {console.log(response)})
+            axios.post('http://127.0.0.1:5000/login', data)
+                .then(response => {
+                    console.log(response);
+                    location.reload()
+                }
+            )
+        },
+        logout() {
+            axios.post('http://127.0.0.1:5000/clearsession').then(response => {console.log(response)});
+            location.reload()
         }
     },
 })

@@ -1,7 +1,16 @@
 # -*- coding: UTF-8 -*-
 from flask import current_app as app
-from flask import request, make_response, session
+from flask import request, make_response, session, abort
 from orm import orm_login
+
+import logging
+# 日志系统配置
+handler = logging.FileHandler('app.log', encoding='UTF-8')
+logging_format = logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+handler.setFormatter(logging_format)
+app.logger.addHandler(handler)
+
+# https://www.cnblogs.com/cwp-bg/p/8946394.html
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
@@ -20,7 +29,20 @@ def login():
 		resp.data = 'UNKNOWN METHOD'
 		return resp
 
-	resp.data = orm_login.login(email, password)
-	# session.permanent = True
-	# session['username'] = email
-	return resp
+	temp_result = orm_login.login(email, password)
+
+	# 查看接口返回值的status状态
+	if temp_result['status'] == 200:
+
+		# 给用户的session中插入user_name和user_id
+		session['user_email'] = temp_result['result']['user_email']
+		session['user_id'] = temp_result['result']['user_id']
+
+		resp.data = temp_result['result']['user_email']
+
+		app.logger.info('%s logged in successfully' % temp_result['result']['user_email'])
+
+		return resp
+
+	else:
+		abort(404)

@@ -7,6 +7,5 @@ app.config.from_pyfile('./config/config_flask.py')
 CORS(app, supports_credentials=True)
 
 with app.app_context():
-	from api import say_hello
-	from api import api_mailcode, api_signup, api_login, api_reset_password
+	from api import api_mailcode, api_signup, api_login, api_reset_password, api_error, api_get_session, api_logout
 	app.run(host = '0.0.0.0', port = 5000)

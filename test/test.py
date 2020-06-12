@@ -89,3 +89,24 @@
 # except Exception as e:
 #     c = 'no'
 # print(c)
+
+# 测试dict
+# a = {'a':'123', 'b':'234'}
+# print(a['a'])
+
+# 测试json
+# import json
+
+# data = {
+#     'no' : 1,
+#     'name' : 'Runoob',
+#     'url' : 'http://www.runoob.com'
+# }
+
+# json_str = json.dumps(data)
+
+# print ("JSON 对象：", json_str)
+
+# data2 = json.loads(json_str)
+
+# print(data2['no'])
