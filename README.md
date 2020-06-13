@@ -20,7 +20,9 @@
 		- [x] 从api接口返回到前端的resp都转成json格式，在其中夹带状态码，前端方便做判断。下一步要做的就是get_session转json
 		- [x] log out
 		- [ ] 重定向，在vue router里做
-		- [ ] 保存log
+		- [x] 保存log
+		- [ ] log按时间切分
+		- [ ] error的log邮箱通知
 		- [ ] 评论
 		- [ ] 检验密码强度在前端做
 	* 管理api

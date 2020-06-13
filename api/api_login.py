@@ -3,13 +3,6 @@ from flask import current_app as app
 from flask import request, make_response, session, abort
 from orm import orm_login
 
-import logging
-# 日志系统配置
-handler = logging.FileHandler('app.log', encoding='UTF-8')
-logging_format = logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
-handler.setFormatter(logging_format)
-app.logger.addHandler(handler)
-
 # https://www.cnblogs.com/cwp-bg/p/8946394.html
 
 @app.route('/login', methods = ['GET','POST'])
@@ -39,9 +32,7 @@ def login():
 		session['user_id'] = temp_result['result']['user_id']
 
 		resp.data = temp_result['result']['user_email']
-
 		app.logger.info('%s logged in successfully' % temp_result['result']['user_email'])
-
 		return resp
 
 	else:
