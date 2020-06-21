@@ -28,7 +28,7 @@ def initialize_orm():
 
     # md文章列表
     class Articlelist(Base):
-        __tablename__ = 'mdlist'
+        __tablename__ = 'article_list'
         id = Column(Integer, primary_key = True, nullable = False)
         title = Column(String(20), nullable = False)
         abstract = Column(String(20), nullable = False)

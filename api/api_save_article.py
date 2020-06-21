@@ -1,11 +1,13 @@
 # -*- coding: UTF-8 -*-
 from flask import current_app as app
-from flask import make_response, session
+from flask import make_response, session, request
 import datetime
 from orm import orm_save_article
+import sys
 
 @app.route('/savearticle', methods = ['POST'])
 def saveArticle():
+    
     resp = make_response()
     # 获取时间、标题、摘要、头像名、md正文
     if request.method == 'POST':
@@ -15,7 +17,6 @@ def saveArticle():
         inner_abstract = request.form.get('abstract')
         inner_avatar = request.form.get('avatar')
         inner_content = request.form.get('content')
-
     else:
         resp.data = 'UNKNOWN METHOD'
         return resp
