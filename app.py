@@ -11,8 +11,6 @@ app.logger.addHandler(config_logger.initialize_logger())
 
 CORS(app, supports_credentials=True)
 
-
-
 with app.app_context():
     from api import (api_mailcode, 
                     api_signup, 
@@ -20,5 +18,7 @@ with app.app_context():
                     api_reset_password, 
                     api_error, 
                     api_get_session, 
-                    api_logout)
+                    api_logout,
+                    api_save_article,
+                    say_hello)
     app.run(host = '0.0.0.0', port = 5000)

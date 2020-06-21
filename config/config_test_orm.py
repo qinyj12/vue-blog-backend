@@ -26,11 +26,22 @@ def initialize_orm():
         if_used = Column(Integer, server_default = '0', nullable = False)
         purpose = Column(String(20), nullable = False)
 
-    # 这里要注意路径是datebase/database.db
+    # md文章列表
+    class Articlelist(Base):
+        __tablename__ = 'article_list'
+        id = Column(Integer, primary_key = True, nullable = False)
+        title = Column(String(20), nullable = False)
+        abstract = Column(String(20), nullable = False)
+        avatar = Column(String(20), nullable = False)
+        time = Column(String(20), nullable = False)
+
+    # 这里要注意路径是../datebase/database.db
     engine = create_engine('sqlite:///../database/database.db', connect_args = {'check_same_thread': False})
     DBSession = sessionmaker(engine)
     session = DBSession()
 
-    return {'dict_session': session, 'dict_user': User, 'dict_mailcode': Mailcode}
+    # return {'dict_session': session, 'dict_user': User, 'dict_mailcode': Mailcode, 'dict_Articlelist': Articlelist}
 
-    # return Base.metadata.create_all(engine)
+    return Base.metadata.create_all(engine)
+
+initialize_orm()
