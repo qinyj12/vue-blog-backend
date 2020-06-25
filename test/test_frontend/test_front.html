@@ -11,12 +11,31 @@
 </head>
 <body>
     <div id="app">
+        <!-- 注册组件 -->
+        <div>
+            <el-divider content-position="left">注册</el-divider>
+            <el-input placeholder="邮箱" v-model="signupMail"></el-input>
+            <el-input placeholder="密码" v-model="signupPass"></el-input>
+            <el-input placeholder="邮箱验证码" v-model="signupCode"></el-input>
+            <el-button>发送验证码</el-button>
+            <el-button type="primary" @click="signup">注册</el-button>
+        </div>
+
         <!-- 登录组件 -->
         <div>
             <el-divider content-position="left">登录</el-divider>
-            <el-input placeholder="用户名" style="width: 200px;"></el-input>
-            <el-input placeholder="邮箱验证码" style="width: 200px;"></el-input>
+            <el-input placeholder="邮箱" v-model="loginMail"></el-input>
+            <el-input placeholder="密码" v-model="loginPass"></el-input>
             <el-button type="primary" @click="login">登录</el-button>
+        </div>
+
+        <!-- 重置密码组件 -->
+        <div>
+            <el-divider content-position="left">重置密码</el-divider>
+            <el-input placeholder="邮箱" v-model="reMail"></el-input>
+            <el-input placeholder="新密码" v-model="rePass"></el-input>
+            <el-input placeholder="邮箱验证码" v-model="reCode"></el-input>
+            <el-button type="primary" @click="reset">确认重置</el-button>
         </div>
 
         <!-- 注销组件 -->
@@ -28,14 +47,14 @@
         <!-- 测试组件 -->
         <div>
             <el-divider content-position="left">测试</el-divider>
-            <el-button type="success" @click="test">测试</el-button>
+            <el-button type="success" @click="test">hello</el-button>
         </div>
 
         <!-- 结果组件 -->
         <div>
-            <el-divider content-position="left">结果</el-divider>
-            <span>结果：</span>
-            <span>{{result}}</span>
+            <el-divider content-position="left">其他</el-divider>
+            <span>当前用户：</span>
+            <span>{{currentUser}}</span>
         </div>
     </div>
 </body>
@@ -46,9 +65,14 @@ new Vue({
     data: {
         message: 'hello ',
         currentUser: null,
-        inputEmail: null,
-        inputPass: null,
-        result: null
+        signupMail: null,
+        signupPass: null,
+        signupCode: null,
+        loginMail: null,
+        loginPass: null,
+        reMail: null,
+        rePass: null,
+        reCode: null
     },
     mounted() {
         // 跨域发送cookie
@@ -59,45 +83,68 @@ new Vue({
                 .then(
                     response => {
                         console.log(response);
-                        // if (response.data.status == 200) {
-                        //     // 从后端取得当前session用户，赋值给currentUser
-                        //     this.currentUser = response.data.result;
+                        if (response.data.status == 200) {
+                            // 从后端取得当前session用户，赋值给currentUser
+                            this.currentUser = response.data.result;
 
-                        // // 如果是404
-                        // } else if (response.data.status == 404) {
-                        //     this.currentUser = 'NOT FOUND';
+                        // 如果是404
+                        } else if (response.data.status == 400) {
+                            this.currentUser = 'NOT FOUND';
 
-                        // // 其他情况
-                        // } else {
-                        //     alert('ERROR')
-                        // }
+                        // 其他情况
+                        } else {
+                            alert('ERROR')
+                        }
                     }
                 )
     },
     methods: {
+        signup() {
+            axios.defaults.withCredentials = true;
+            let data = new FormData();
+            data.append('nickname', 'demo');
+            data.append('email', this.signupMail);
+            data.append('password', this.signupPass);
+            data.append('mailcode', this.signupCode);
+            axios.post('http://127.0.0.1:5000/signup', data)
+                .then(response => {console.log(response)})
+        },
         login() {
             // 跨域发送cookie
             axios.defaults.withCredentials = true;
-
             let data = new FormData();
-            data.append('email', this.inputEmail);
-            data.append('password', this.inputPass);
-
+            data.append('email', this.loginMail);
+            data.append('password', this.loginPass);
             // 调用后端接口
             axios.post('http://127.0.0.1:5000/login', data)
-                .then(response => {
-                    console.log(response);
-                    location.reload()
-                }
-            )
+                .then(response => {console.log(response)})
         },
-        test() {
-            axios.post('http://127.0.0.1:5000/hello').then(response => {console.log(response)})
+        reset() {
+            // 跨域发送cookie
+            axios.defaults.withCredentials = true;
+            let data = new FormData();
+            data.append('email', this.reMail);
+            data.append('code', this.reCode);
+            data.append('new_pass', this.rePass)
+            // 调用后端接口
+            axios.post('http://127.0.0.1:5000/resetpass', data)
+                .then(response => {console.log(response)})
         },
         logout() {
             axios.post('http://127.0.0.1:5000/clearsession').then(response => {console.log(response)});
             location.reload()
+        },
+        test() {
+            axios.post('http://127.0.0.1:5000/hello').then(response => {console.log(response)})
         }
     },
 })
 </script>
+<style>
+    * {
+        margin-bottom: 5px;
+    }
+    .el-input__inner {
+        width: 200px;
+    }
+</style>

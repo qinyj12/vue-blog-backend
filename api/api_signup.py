@@ -6,15 +6,15 @@ app = Blueprint('api_signup', __name__)
 @app.route('/signup', methods = ['GET','POST'])
 def signup():
     if request.method == 'GET':
-        parameter_nickname = request.args.get('parameter_nickname')
-        parameter_email = request.args.get('parameter_email')
-        parameter_password = request.args.get('parameter_password')
-        parameter_mailcode = request.args.get('code')
+        parameter_nickname = request.args.get('nickname')
+        parameter_email = request.args.get('email')
+        parameter_password = request.args.get('password')
+        parameter_mailcode = request.args.get('mailcode')
     elif request.method == 'POST':
-        parameter_nickname = request.form.get('parameter_nickname')
-        parameter_email = request.form.get('parameter_email')
-        parameter_password = request.form.get('parameter_password')
-        parameter_mailcode = request.form.get('code')
+        parameter_nickname = request.form.get('nickname')
+        parameter_email = request.form.get('email')
+        parameter_password = request.form.get('password')
+        parameter_mailcode = request.form.get('mailcode')
     # 本来就不允许其他方法，所以直接pass也没关系
     else:
         pass
