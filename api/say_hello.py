@@ -1,18 +1,13 @@
 # -*- coding: UTF-8 -*-
-# from flask import current_app as app
-from flask import make_response, Blueprint
+from flask import make_response, Blueprint, jsonify, current_app
 
-app_hello = Blueprint('app_hello', __name__)
-@app_hello.route('/hello', methods = ['GET', 'POST'])
+app = Blueprint('say_hello', __name__)
+
+@app.route('/hello', methods = ['GET', 'POST'])
 def say_hello():
-    resp = make_response()
-    resp.data = 'Hello World!'
-    resp.msg = 'yesyesyes'
-    return resp
-
-
-# @app.route('/hello', methods = ['GET', 'POST'])
-# def say_hello():
-#     resp = make_response()
-#     resp.data = 'Hello World!'
-#     return resp
+    resp = {
+        'msg': 'hello world',
+        'msg2': 'hello dog~'
+    }
+    current_app.logger.info('say hello')
+    return jsonify(resp)

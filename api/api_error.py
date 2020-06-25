@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
-from flask import current_app as app
+from flask import Blueprint
+
+app = Blueprint('api_error', __name__)
 
 @app.errorhandler(404)
 def handle_404_error(error):  # error：错误信息

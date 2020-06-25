@@ -2,15 +2,12 @@
 from sqlalchemy import exists
 from config import config_orm_initial
 
-import sys
-
-# 从config/config_orm_initial引入
+# 从config/config_orm_initial引入orm配置
 session = config_orm_initial.initialize_orm()['dict_session']
 User = config_orm_initial.initialize_orm()['dict_user']
 
-#登录
+#定义登录方法
 def login(func_inner_email, func_inner_password):
-
     # 尝试找到password、email相等的记录
     try:
         inner_target = session.query(User).filter(
@@ -22,5 +19,6 @@ def login(func_inner_email, func_inner_password):
                 'result': {'user_email': inner_target.email, 'user_id': inner_target.id}
                 }
 
+    # 如果没有找到接收的email、password参数的记录
     except Exception as e:
-        return {'status': 404, 'result': str(e)}
+        return {'status': 400, 'result': str(e)}

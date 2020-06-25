@@ -1,39 +1,46 @@
 # -*- coding: UTF-8 -*-
-from flask import current_app as app
-from flask import request, make_response, session, abort
+from flask import request, session, Blueprint, jsonify
 from orm import orm_login
 
-# https://www.cnblogs.com/cwp-bg/p/8946394.html
+app = Blueprint('api_login', __name__)
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
-    resp = make_response()
-
+    # 如果是get方法
     if request.method == 'GET':
         global emal, password
         email = request.args.get('email')
         password = request.args.get('password')
-
+    # 如果是post方法
     elif request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-
+    # 因为不允许其他方法，所以直接pass就好了
     else:
-        resp.data = 'UNKNOWN METHOD'
-        return resp
+        pass
 
+    # 拿到浏览器请求的email和password后，调用orm_login.login接口
     temp_result = orm_login.login(email, password)
 
-    # 查看接口返回值的status状态
+    # 查看接口返回值的status状态，如果状态正常
     if temp_result['status'] == 200:
-
         # 给用户的浏览器session中插入user_name和user_id
         session['user_email'] = temp_result['result']['user_email']
         session['user_id'] = temp_result['result']['user_id']
+        # 定义返回值
+        resp = {
+            'status': 200,
+            'result': {
+                'email': temp_result['result']['user_email'],
+                'id': temp_result['result']['user_id']
+            }
+        }
+        return jsonify(resp)
 
-        resp.data = temp_result['result']['user_email']
-        app.logger.info('%s logged in successfully' % temp_result['result']['user_email'])
-        return resp
-
+    # 如果接口返回的状态不正常,即用户输入email、password不对
     else:
-        abort(404)
+        resp = {
+            'status': 400,
+            'result': '用户名或密码输入错误'
+        }
+        return jsonify(resp)
