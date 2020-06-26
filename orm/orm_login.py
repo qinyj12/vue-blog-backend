@@ -7,18 +7,21 @@ session = config_orm_initial.initialize_orm()['dict_session']
 User = config_orm_initial.initialize_orm()['dict_user']
 
 #定义登录方法
-def login(func_inner_email, func_inner_password):
+def login(parameter_email, parameter_password):
     # 尝试找到password、email相等的记录
     try:
-        inner_target = session.query(User).filter(
-            User.email == func_inner_email,
-            User.password == func_inner_password
+        temp_target = session.query(User).filter(
+            User.email == parameter_email,
+            User.password == parameter_password
         ).first()
-        # 定义status状态，以给接口捕获状态
+
+        # 如果没有相等的记录，则为None，那样temp_target.email也是错误的，会跳转except
+        session.close()
         return {'status': 200, 
-                'result': {'user_email': inner_target.email, 'user_id': inner_target.id}
+                'result': {'user_email': temp_target.email, 'user_id': temp_target.id}
                 }
 
     # 如果没有找到接收的email、password参数的记录
     except Exception as e:
-        return {'status': 400, 'result': str(e)}
+        session.close()
+        return {'status': 400, 'result': '用户名或密码错误'}

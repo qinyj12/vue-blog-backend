@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
+    <title>发布</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 发布组件 -->
+        <div>
+            <el-divider content-position="left">发布</el-divider>
+            <el-input placeholder="标题" v-model="title"></el-input>
+            <el-input placeholder="摘要" v-model="abstract"></el-input>
+            <el-input placeholder="头像" v-model="avatar"></el-input>
+            <el-input placeholder="正文" v-model="content"></el-input>
+            <el-button @click="save">保存</el-button>
+        </div>
+        
+        <!-- 文章组件 -->
+        <div class="article-list">
+            <el-divider content-position="left">文章列表</el-divider>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    axios.defaults.withCredentials = true;
+    new Vue ({
+        el: '#app',
+        data: {
+            title: null,
+            abstract: null,
+            avatar: null,
+            content: null,
+        },
+        methods: {
+            save() {
+                let data = new FormData();
+                data.append('title', this.title);
+                data.append('abstract', this.abstract);
+                data.append('avatar', this.avatar);
+                data.append('content', this.content);
+                axios.post('http://127.0.0.1:5000/savearticle', data)
+                    .then(response => {
+                        console.log(response.data)
+                    })
+            }
+        },
+    })
+</script>
+<style>
+    .el-input {
+        width: 200px;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .el-button {
+        margin-bottom: 5px;
+    }
+</style>

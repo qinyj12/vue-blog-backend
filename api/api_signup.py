@@ -22,11 +22,4 @@ def signup():
     from orm import orm_signup
     temp_result = orm_signup.sign_up(parameter_nickname, parameter_email, parameter_password, parameter_mailcode)
 
-    # 如果接口返回的状态码正常
-    if temp_result['status'] == 200:
-        return jsonify(temp_result)
-
-    # 如果接口返回的状态码异常
-    else:
-        current_app.logger.info(temp_result['result'])
-        return jsonify(temp_result)
+    return jsonify(temp_result)

@@ -22,7 +22,7 @@ def get_session():
         else:
             resp = {
                 'status': 400,
-                'result': 'null'
+                'result': '未登录'
             }
             return jsonify(resp)
 

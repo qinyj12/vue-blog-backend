@@ -1,8 +1,11 @@
+# -*- coding: UTF-8 -*-
 from flask import request, render_template, jsonify, Blueprint, current_app
 from flask_mail import Mail, Message
 import re
 
-app = Blueprint('api_mailcode', __name__)
+# 引入外部模块定义的模板文件夹
+from config import config_mailcode
+app = Blueprint('api_mailcode', __name__, template_folder = config_mailcode.Config().template_folder)
 
 @app.route('/mailcode', methods = ['GET','POST'])
 def send_mail():
@@ -17,22 +20,25 @@ def send_mail():
     else:
         pass
 
-    # 引入上级目录和配置mail
-    import sys
-    sys.path.append('../')
+    # 配置mail
     from config import config_mail
-    app.config.from_object(config_mail.Config())
+    current_app.config.from_object(config_mail.Config())
     mail = Mail(current_app)
     msg = Message('hello world', sender='1562555013@qq.com', recipients=[user_mail])
-
+    
     # 引入外部模块，存储验证码到数据库
     from orm import orm_code
     temp_result = orm_code.save_mail_code(user_mail, user_purpose)
 
+    import sys
+    print('1', file=sys.stderr)
+
     # 如果接口返回的状态正常
     if temp_result['status'] == 200:
+        print('2', file=sys.stderr)
         # 发邮件
-        msg.html = render_template('temp_email.html', name = re.split(r'@', user_mail)[0], code = temp_result) # 提取user_mail中@之前的部分
+        msg.html = render_template('temp_email.html', name = re.split(r'@', user_mail)[0], code = temp_result['result']) # 提取user_mail中@之前的部分
+        print('3', file=sys.stderr)
         try:
             mail.send(msg)
             resp = {
@@ -43,18 +49,13 @@ def send_mail():
 
         # 有可能邮箱配置会出现问题
         except Exception as e:
+            current_app.logger.info(e)
             resp = {
                 'status': 500,
-                'result': str(e)
+                'result': '服务器出错了'
             }
             return jsonify(resp)
 
     # 如果接口返回的状态异常
     else:
-        current_app.logger.info(temp_result['result'])
-        resp = {
-            'status': temp_result['status'],
-            'result': temp_result['result']
-        }
-        return jsonify(resp)
-
+        return jsonify(temp_result)

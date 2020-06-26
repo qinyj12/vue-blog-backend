@@ -22,10 +22,30 @@ def saveArticle():
     from orm import orm_save_article
     temp_result = orm_save_article.save_article(parameter_title, parameter_abstract, parameter_avatar, parameter_time)
 
-    # 如果接口返回的状态码正常
-    if temp_result == 200:
-        return jsonify(temp_result)
-    # 如果接口返回的状态码异常
+    # 如果状态码正常，
+    if temp_result['status'] == 200:
+
+        # 尝试保存content为md格式
+        try:
+            file_name = './static/articles/' + str(temp_result['result']['article_id']) + '_' + parameter_title + '.md'
+            with open(file_name , 'w') as f:
+                f.write(parameter_content)
+
+            return jsonify(temp_result)
+
+        # 如果发生意想不到的错误
+        except Exception as e:
+            current_app.logger.info(e)
+            # 把article表的那个数据删除
+            from orm import orm_delete_article
+            temp_delete_result = orm_delete_article.delete_article(temp_result['result']['article_id'])
+
+            resp = {
+                'status': 500,
+                'result': '写入又删除，啥也没干成'
+            }
+            return jsonify(resp)
+
+    # 如果状态码不正常，即没有成功保存到articl表里，那就没必要存md了
     else:
-        current_app.logger.info(temp_result['result'])
-        return jsonify(temp_result)
+        return temp_result

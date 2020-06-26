@@ -2,6 +2,8 @@
 import random, time, datetime
 from sqlalchemy.sql import exists, and_
 from config import config_orm_initial
+from flask import current_app
+
 
 # 从config/config_orm_initial引入
 session = config_orm_initial.initialize_orm()['dict_session']
@@ -40,6 +42,7 @@ def save_mail_code(parameter_email, parameter_purpose):
         except Exception as e:
             session.rollback()
             session.close()
+            current_app.logger.info(e)
             return {'status': 500, 'result': str(e)}
 
     # 如果表里没有邮箱的记录，直接保存
@@ -55,14 +58,16 @@ def save_mail_code(parameter_email, parameter_purpose):
                 Mailcode.email == parameter_email,
                 Mailcode.purpose == parameter_purpose,
                 Mailcode.if_used == 0,
-                now_time - Mailcode.timestamp < 60
+                now_time - Mailcode.timestamp < current_app.mailcode_too_often
             )
         )).scalar()
 
         # 如果这个邮箱60s内已经发过验证码了
         if if_too_often:
-            return {'status': 400, 'result': 'too often'}
+            session.close()
+            return {'status': 400, 'result': '太频繁啦'}
 
         # 60s内没有发过验证码，或者没有找到purpose==parameter_purpose的验证码
         else:
+            session.close()
             return inner_save_code()

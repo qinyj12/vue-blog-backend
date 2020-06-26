@@ -20,11 +20,4 @@ def reset_password():
     from orm import orm_reset_pass
     temp_result = orm_reset_pass.reset_password(email, mailcode, new_pass)
 
-    # 如果接口返回的状态码正常
-    if temp_result['status'] == 200:
-        return jsonify(temp_result)
-
-    # 如果接口返回的状态码异常
-    else:
-        current_app.logger.info(temp_result['result'])
-        return jsonify(temp_result)
+    return jsonify(temp_result)

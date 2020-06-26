@@ -5,12 +5,13 @@ app = Blueprint('api_logout', __name__)
 
 @app.route('/clearsession', methods = ['GET','POST'])
 def clear_session():
+
     # 尝试清理session
     try:
         session.clear()
         resp = {
             'status': 200,
-            'result': 'session cleared'
+            'result': '注销成功'
         }
         return jsonify(resp)
 

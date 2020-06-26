@@ -27,20 +27,9 @@ def login():
         # 给用户的浏览器session中插入user_name和user_id
         session['user_email'] = temp_result['result']['user_email']
         session['user_id'] = temp_result['result']['user_id']
-        # 定义返回值
-        resp = {
-            'status': 200,
-            'result': {
-                'email': temp_result['result']['user_email'],
-                'id': temp_result['result']['user_id']
-            }
-        }
-        return jsonify(resp)
+
+        return jsonify(temp_result)
 
     # 如果接口返回的状态不正常,即用户输入email、password不对
     else:
-        resp = {
-            'status': 400,
-            'result': '用户名或密码输入错误'
-        }
-        return jsonify(resp)
+        return jsonify(temp_result)

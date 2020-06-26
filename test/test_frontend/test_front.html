@@ -5,19 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
     <title>test</title>
 </head>
 <body>
     <div id="app">
+        <!-- 前往其他页 -->
+        <div>
+            <el-button type="primary">
+                <a href="./test_publish.html" target="_blank" class="router">前往发布页</a>
+            </el-button>
+        </div>
+
         <!-- 注册组件 -->
         <div>
             <el-divider content-position="left">注册</el-divider>
             <el-input placeholder="邮箱" v-model="signupMail"></el-input>
-            <el-input placeholder="密码" v-model="signupPass"></el-input>
             <el-input placeholder="邮箱验证码" v-model="signupCode"></el-input>
-            <el-button>发送验证码</el-button>
+            <el-button @click="sendMailcode('signup')">发送验证码</el-button>
+            <el-button type="info" @click="checkCode('signup')">核实验证码</el-button>
+            <el-input placeholder="昵称" v-model="signupNick" :disabled="ifDisabled"></el-input>
+            <el-input placeholder="密码" v-model="signupPass" :disabled="ifDisabled"></el-input>
             <el-button type="primary" @click="signup">注册</el-button>
         </div>
 
@@ -33,8 +42,10 @@
         <div>
             <el-divider content-position="left">重置密码</el-divider>
             <el-input placeholder="邮箱" v-model="reMail"></el-input>
-            <el-input placeholder="新密码" v-model="rePass"></el-input>
             <el-input placeholder="邮箱验证码" v-model="reCode"></el-input>
+            <el-button @click="sendMailcode('reset_password')">发送验证码</el-button>
+            <el-button type="info" @click="checkCode('reset_password')">核实验证码</el-button>
+            <el-input placeholder="新密码" v-model="rePass" :disabled="ifDisabled"></el-input>
             <el-button type="primary" @click="reset">确认重置</el-button>
         </div>
 
@@ -60,13 +71,15 @@
 </body>
 </html>
 <script>
+axios.defaults.withCredentials = true;
 new Vue({
     el: '#app',
     data: {
-        message: 'hello ',
+        ifDisabled: true,
         currentUser: null,
         signupMail: null,
         signupPass: null,
+        signupNick: null,
         signupCode: null,
         loginMail: null,
         loginPass: null,
@@ -75,22 +88,17 @@ new Vue({
         reCode: null
     },
     mounted() {
-        // 跨域发送cookie
-        axios.defaults.withCredentials = true;
-        // 调用后端接口
         axios
             .post('http://127.0.0.1:5000/getsession')
                 .then(
                     response => {
-                        console.log(response);
+                        console.log(response.data);
                         if (response.data.status == 200) {
                             // 从后端取得当前session用户，赋值给currentUser
                             this.currentUser = response.data.result;
-
-                        // 如果是404
+                        // 如果是400
                         } else if (response.data.status == 400) {
                             this.currentUser = 'NOT FOUND';
-
                         // 其他情况
                         } else {
                             alert('ERROR')
@@ -100,48 +108,112 @@ new Vue({
     },
     methods: {
         signup() {
-            axios.defaults.withCredentials = true;
             let data = new FormData();
-            data.append('nickname', 'demo');
+            data.append('nickname', this.signupNick);
             data.append('email', this.signupMail);
             data.append('password', this.signupPass);
             data.append('mailcode', this.signupCode);
             axios.post('http://127.0.0.1:5000/signup', data)
-                .then(response => {console.log(response)})
+                .then(response => {
+                    console.log(response.data);
+                    if (response.data.status == 200) {
+                        alert('注册成功')
+                    } else {
+                        alert(response.data.result);
+                        location.reload()
+                    }
+                })
         },
         login() {
-            // 跨域发送cookie
-            axios.defaults.withCredentials = true;
             let data = new FormData();
             data.append('email', this.loginMail);
             data.append('password', this.loginPass);
             // 调用后端接口
             axios.post('http://127.0.0.1:5000/login', data)
-                .then(response => {console.log(response)})
+                .then(response => {
+                    console.log(response.data);
+                    if (response.data.status == 200) {
+                        alert('登录成功');
+                        location.reload()
+                    } else {
+                        alert(response.data.result)
+                    }
+                })
         },
         reset() {
-            // 跨域发送cookie
-            axios.defaults.withCredentials = true;
             let data = new FormData();
             data.append('email', this.reMail);
-            data.append('code', this.reCode);
+            data.append('mailcode', this.reCode);
             data.append('new_pass', this.rePass)
             // 调用后端接口
             axios.post('http://127.0.0.1:5000/resetpass', data)
-                .then(response => {console.log(response)})
+                .then(response => {console.log(response.data)})
         },
         logout() {
-            axios.post('http://127.0.0.1:5000/clearsession').then(response => {console.log(response)});
-            location.reload()
+            axios.post('http://127.0.0.1:5000/clearsession')
+                .then(response => {
+                    console.log(response.data);
+                    alert('注销成功');
+                    location.reload()
+                })
         },
         test() {
-            axios.post('http://127.0.0.1:5000/hello').then(response => {console.log(response)})
+            axios.post('http://127.0.0.1:5000/hello')
+                .then(response => {console.log(response.data)})
+        },
+        sendMailcode(purpose) {
+            let data = new FormData();
+            data.append('purpose', purpose);
+            if (purpose == 'signup') {
+                data.append('email', this.signupMail)
+            } else if (purpose == 'reset_password') {
+                data.append('email', this.reMail)
+            } else {
+                alert(purpose);
+                return
+            };
+            axios.post('http://127.0.0.1:5000/mailcode', data)
+                .then(response => {console.log(response.data)})
+        },
+        checkCode(purpose) {
+            let data = new FormData();
+            data.append('purpose', purpose);
+            if (purpose == 'signup') {
+                data.append('email', this.signupMail);
+                data.append('mailcode', this.signupCode)
+            } else if (purpose == 'reset_password') {
+                data.append('email', this.reMail);
+                data.append('mailcode', this.reCode)
+            } else {
+                alert(purpose);
+                return
+            };
+            axios.post('http://127.0.0.1:5000/checkcode', data)
+                .then(response => {
+                    console.log(response.data);
+                    if (response.data.status == 200) {
+                        this.ifDisabled = !this.ifDisabled
+                    } else {
+                        console.log('验证未通过，所以没法输入下面的')
+                    }
+                })
         }
     },
 })
 </script>
 <style>
     * {
+        margin-bottom: 5px;
+    }
+    .router {
+        text-decoration: none;
+        color: white;
+        display: block;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .el-button {
         margin-bottom: 5px;
     }
     .el-input__inner {
