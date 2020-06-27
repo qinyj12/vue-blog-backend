@@ -24,10 +24,21 @@
 # import sys
 # sys.path.append('../')
 # from config import config_test_orm
-# from sqlalchemy import exists, and_, or_
+
 # session = config_test_orm.initialize_orm()['dict_session']
 # Mailcode = config_test_orm.initialize_orm()['dict_mailcode']
 # User = config_test_orm.initialize_orm()['dict_user']
+# Articlelist = config_test_orm.initialize_orm()['dict_Articlelist']
+
+
+# target = session.query(Articlelist)[-2:-1]
+
+# for i in target:
+#     print(i.id)
+# session.close()
+
+a=[1,2,3,4]
+print(a[-1:-3:-1])
 
 # func_inner_email = 'qinyj12@126.com'
 
@@ -107,11 +118,7 @@
 #     'name' : 'Runoob',
 #     'url' : 'http://www.runoob.com'
 # }
-
 # json_str = json.dumps(data)
-
 # print ("JSON 对象：", json_str)
-
 # data2 = json.loads(json_str)
-
 # print(data2['no'])

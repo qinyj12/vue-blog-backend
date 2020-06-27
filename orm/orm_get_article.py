@@ -6,6 +6,5 @@ Articlelist = config_orm_initial.initialize_orm()['dict_Articlelist']
 
 def get_article(articles_range):
     try:
-        temp_target = session.query(Articlelist).filter(
-            
-        ).first()
+        articles_range.sort()
+        temp_target = session.query(Articlelist).slice(articles_range[0], articles_range[1]).all()

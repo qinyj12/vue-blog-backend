@@ -34,7 +34,7 @@ def initialize_orm():
         abstract = Column(String(20), nullable = False)
         avatar = Column(String(20), nullable = False)
         time = Column(String(20), nullable = False)
-        views = Column(Integer,  nullable = True)
+        views = Column(Integer,  nullable = False)
 
     # 这里要注意路径是datebase/database.db
     engine = create_engine('sqlite:///database/database.db', connect_args = {'check_same_thread': False})
