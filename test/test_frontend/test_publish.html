@@ -13,10 +13,21 @@
     <div id="app">
         <!-- 发布组件 -->
         <div>
+            <el-divider content-position="left">登录</el-divider>
+            <span>当前用户：</span>
+            <span>{{currentUser}}</span>
+            <el-input placeholder="邮箱" v-model="loginMail"></el-input>
+            <el-input placeholder="密码" v-model="loginPass"></el-input>
+            <el-button @click="login">登录</el-button>
+        </div>
+
+        <!-- 发布组件 -->
+        <div>
             <el-divider content-position="left">发布</el-divider>
             <el-input placeholder="标题" v-model="title"></el-input>
             <el-input placeholder="摘要" v-model="abstract"></el-input>
             <el-input placeholder="头像" v-model="avatar"></el-input>
+            <el-input placeholder="封面图" v-model="cover"></el-input>
             <el-input placeholder="正文" v-model="content"></el-input>
             <el-button @click="save">保存</el-button>
         </div>
@@ -24,6 +35,12 @@
         <!-- 文章组件 -->
         <div class="article-list">
             <el-divider content-position="left">文章列表</el-divider>
+            <ul>
+                <li v-for="(item, index) in articleList" :key="item.id">
+                    {{item.id}}
+                    {{item.title}}
+                </li>
+            </ul>
         </div>
     </div>
 </body>
@@ -33,21 +50,70 @@
     new Vue ({
         el: '#app',
         data: {
+            currentUser: null,
+            loginMail: null,
+            loginPass: null,
             title: null,
             abstract: null,
             avatar: null,
+            cover: null,
             content: null,
+            range: [0,2],
+            articleList: null
         },
+        mounted() {
+            axios.post('http://127.0.0.1:5000/getsession').then(
+                response => {
+                    console.log(response.data);
+                    if (response.data.status == 200) {
+                        // 从后端取得当前session用户，赋值给currentUser
+                        this.currentUser = response.data.result;
+                    // 如果是400
+                    } else if (response.data.status == 400) {
+                        this.currentUser = 'NOT FOUND';
+                    // 其他情况
+                    } else {
+                        alert('ERROR')
+                    }
+                }
+            );
+            let data = new FormData();
+            data.append('articles_for_single', JSON.stringify(this.range))
+            // data.append('articles_for_single', this.range)
+            axios.post('http://127.0.0.1:5000/getarticle', data)
+                .then(response => {
+                    console.log(response.data.result);
+                    this.articleList = response.data.result
+                })
+        },
+
         methods: {
             save() {
                 let data = new FormData();
                 data.append('title', this.title);
                 data.append('abstract', this.abstract);
                 data.append('avatar', this.avatar);
+                data.append('cover', this.cover);
                 data.append('content', this.content);
                 axios.post('http://127.0.0.1:5000/savearticle', data)
                     .then(response => {
                         console.log(response.data)
+                    })
+            },
+            login() {
+                let data = new FormData();
+                data.append('email', this.loginMail);
+                data.append('password', this.loginPass);
+                // 调用后端接口
+                axios.post('http://127.0.0.1:5000/login', data)
+                    .then(response => {
+                        console.log(response.data);
+                        if (response.data.status == 200) {
+                            alert('登录成功');
+                            location.reload()
+                        } else {
+                            alert(response.data.result)
+                        }
                     })
             }
         },

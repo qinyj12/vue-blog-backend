@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from flask import make_response, Blueprint, jsonify, current_app
+from flask import make_response, Blueprint, jsonify
 
 app = Blueprint('say_hello', __name__)
 
@@ -9,5 +9,4 @@ def say_hello():
         'msg': 'hello world',
         'msg2': 'hello dog~'
     }
-    current_app.logger.info('say hello')
     return jsonify(resp)

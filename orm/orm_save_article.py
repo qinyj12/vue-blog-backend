@@ -7,15 +7,17 @@ session = config_orm_initial.initialize_orm()['dict_session']
 Article_list = config_orm_initial.initialize_orm()['dict_Articlelist']
 
 
-def save_article(parameter_title, parameter_abstract, parameter_avatar, parameter_time):
+def save_article(parameter_title, parameter_abstract, parameter_avatar, parameter_cover, parameter_time):
     # 保存正文id（自增主键）、标题、摘要、头像名、时间到数据库
     try:
         new_article = Article_list(
             title = parameter_title,
             abstract = parameter_abstract,
             avatar = parameter_avatar,
+            cover = parameter_cover,
             time = parameter_time,
-            views = 0
+            views = 0,
+            comments = 0
         )
         session.add(new_article)
         session.commit()

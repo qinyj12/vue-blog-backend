@@ -37,9 +37,6 @@
 #     print(i.id)
 # session.close()
 
-a=[1,2,3,4]
-print(a[-1:-3:-1])
-
 # func_inner_email = 'qinyj12@126.com'
 
 # inner_result = session.query(User).filter(User.email == func_inner_email).first()
@@ -70,13 +67,13 @@ print(a[-1:-3:-1])
 # print(round(time.time()))
 # 异常处理的方法
 # try:
-# 	print('try...')
-# 	r = 10 / 0
-# 	print('result:', r)
+#   print('try...')
+#   r = 10 / 0
+#   print('result:', r)
 # except ZeroDivisionError as e:
-# 	print('except:', e)
+#   print('except:', e)
 # finally:
-# 	print('finally...')
+#   print('finally...')
 # 密码强度，总长度>=9，有数字，有英文
 # def checkio(s):
 #     fs = ''.join(filter(str.isalnum, s)) # keep only letters and digits
@@ -122,3 +119,54 @@ print(a[-1:-3:-1])
 # print ("JSON 对象：", json_str)
 # data2 = json.loads(json_str)
 # print(data2['no'])
+
+# 测试协程
+# import asyncio
+# async def a():
+#     await c()
+#     print('a has been finished')
+# async def b():
+#     await asyncio.sleep(2)
+#     print('b has been finished')
+# async def c():
+#     await asyncio.sleep(2.1)
+#     print('now running a customized function')
+# loop = asyncio.get_event_loop()
+# tasks = [a(), b()]
+# loop.run_until_complete(asyncio.wait(tasks))
+# loop.close()
+
+# 测试切片
+# a=[1,2,3,4]
+# print(a[-1:-3:-1])
+
+# 测试数据库切片
+# import sys
+# sys.path.append('../')
+# from config import config_test_orm
+
+# session = config_test_orm.initialize_orm()['dict_session']
+# Mailcode = config_test_orm.initialize_orm()['dict_mailcode']
+# User = config_test_orm.initialize_orm()['dict_user']
+# Articlelist = config_test_orm.initialize_orm()['dict_Articlelist']
+
+# target = session.query(Articlelist).order_by(Articlelist.id.desc())[0:5]
+
+# temp_list = []
+# f_2 = lambda x: temp_list.append({'id': x.id, 'title': x.title})
+# list(map(f_2, target))
+# print(temp_list)
+
+# session.close()
+
+# 测试生成数据库
+# import sys
+# sys.path.append('../')
+# from config import config_test_orm
+
+# config_test_orm.initialize_orm()
+
+# 测试获取类型
+a = [0,1]
+# print(isinstance(a, list))
+print(len(a))

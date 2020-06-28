@@ -5,6 +5,7 @@ from config import config_logger, config_mailcode
 from api import (
     api_check_code,
     api_error, 
+    api_get_article,
     api_get_session,
     api_login, 
     api_logout, 
@@ -27,6 +28,7 @@ app.mailcode_too_often = config_mailcode.Config().too_often
 # 注册蓝图
 app.register_blueprint(api_check_code.app)
 app.register_blueprint(api_error.app)
+app.register_blueprint(api_get_article.app)
 app.register_blueprint(api_get_session.app)
 app.register_blueprint(api_login.app)
 app.register_blueprint(api_logout.app)

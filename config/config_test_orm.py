@@ -30,17 +30,19 @@ def initialize_orm():
     class Articlelist(Base):
         __tablename__ = 'article_list'
         id = Column(Integer, primary_key = True, nullable = False)
-        title = Column(String(20), nullable = False)
-        abstract = Column(String(20), nullable = False)
-        avatar = Column(String(20), nullable = False)
-        time = Column(String(20), nullable = False)
-        views = Column(Integer,  nullable = False)
+        title = Column(String(20), nullable = False) # 文章标题
+        abstract = Column(String(20), nullable = True) # 文章的摘要
+        avatar = Column(String(20), nullable = True) # 文章作者的头像
+        cover = Column(String(20), nullable = True) # 封面图
+        time = Column(String(20), nullable = False) # 文章发布的时间
+        views = Column(Integer,  nullable = False) # 文章阅读量
+        comments = Column(Integer,  nullable = False) # 文章评论量
 
-    # 这里要注意路径是datebase/database.db
+    # 这里要注意路径是../datebase/database.db
     engine = create_engine('sqlite:///../database/database.db', connect_args = {'check_same_thread': False})
     DBSession = sessionmaker(engine)
     session = DBSession()
 
-    return {'dict_session': session, 'dict_user': User, 'dict_mailcode': Mailcode, 'dict_Articlelist': Articlelist}
+    # return {'dict_session': session, 'dict_user': User, 'dict_mailcode': Mailcode, 'dict_Articlelist': Articlelist}
 
-    # return Base.metadata.create_all(engine)
+    return Base.metadata.create_all(engine)

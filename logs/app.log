@@ -24,3 +24,6 @@
 2020-06-26 22:04:31,443 - INFO - api_save_article.py - saveArticle - 38 - [Errno 2] No such file or directory: '../static/articles/1_第一篇博客.md'
 2020-06-26 22:04:31,463 - INFO - orm_delete_article.py - delete_article - 28 - Class 'sqlalchemy.orm.query.Query' is not mapped
 2020-06-26 22:05:40,578 - INFO - api_save_article.py - saveArticle - 38 - [Errno 2] No such file or directory: '../static/articles/1_第一篇博客.md'
+2020-06-28 15:56:58,794 - INFO - say_hello.py - say_hello - 12 - say hello
+2020-06-28 16:00:27,872 - INFO - orm_get_article.py - get_article - 25 - 'NoneType' object has no attribute 'sort'
+2020-06-28 16:00:52,637 - INFO - orm_get_article.py - get_article - 25 - 'NoneType' object has no attribute 'sort'
