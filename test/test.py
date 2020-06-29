@@ -172,8 +172,20 @@
 # print(len(a))
 
 # 测试剪切图片(即移动文件)
-import shutil, os.path
+# import shutil, os.path
 # path = '../static/images/temp/'
-a = 'dog.jpg'
-print(os.path.isfile('../static/images/temp/' + a))
+# a = 'dog.jpg'
+# print(os.path.isfile('../static/images/temp/' + a))
 # shutil.move('../static/images/temp/dog.jpg','../static/images/covers/[1]dog.jpg')
+
+# 测试删除文件
+import re, os
+
+a = "[1]fir.md"
+
+b = re.match(r'\[(\d+)\](.*)',a)
+
+print(b.group(2))
+
+
+# os.remove('../static/articles/[1]1.md')

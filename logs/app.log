@@ -27,3 +27,8 @@
 2020-06-28 15:56:58,794 - INFO - say_hello.py - say_hello - 12 - say hello
 2020-06-28 16:00:27,872 - INFO - orm_get_article.py - get_article - 25 - 'NoneType' object has no attribute 'sort'
 2020-06-28 16:00:52,637 - INFO - orm_get_article.py - get_article - 25 - 'NoneType' object has no attribute 'sort'
+2020-06-29 21:17:03,779 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
+2020-06-29 21:24:00,875 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
+2020-06-29 21:24:30,131 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
+2020-06-29 21:26:01,554 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
+2020-06-29 21:26:06,308 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
