@@ -14,6 +14,7 @@ from api import (
     api_save_article, 
     say_hello, 
     api_signup,
+    api_save_cover
 )
 
 app = Flask(__name__)
@@ -37,6 +38,7 @@ app.register_blueprint(api_reset_password.app)
 app.register_blueprint(api_save_article.app)
 app.register_blueprint(api_signup.app)
 app.register_blueprint(say_hello.app)
+app.register_blueprint(api_save_cover.app)
 
 CORS(app, supports_credentials=True)
 

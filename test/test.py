@@ -167,6 +167,13 @@
 # config_test_orm.initialize_orm()
 
 # 测试获取类型
-a = [0,1]
-# print(isinstance(a, list))
-print(len(a))
+# a = [0,1]
+# # print(isinstance(a, list))
+# print(len(a))
+
+# 测试剪切图片(即移动文件)
+import shutil, os.path
+# path = '../static/images/temp/'
+a = 'dog.jpg'
+print(os.path.isfile('../static/images/temp/' + a))
+# shutil.move('../static/images/temp/dog.jpg','../static/images/covers/[1]dog.jpg')

@@ -32,11 +32,27 @@ def saveArticle():
         # 如果状态码正常，
         if temp_result['status'] == 200:
 
-            # 尝试保存content为md格式
             try:
+                # 尝试保存content为md格式
                 file_name = './static/articles/' + '[' + str(temp_result['result']['article_id']) + ']' + parameter_title + '.md'
                 with open(file_name , 'w') as f:
                     f.write(parameter_content)
+
+                # 尝试把temp目录里的图片移动到covers目录
+                import shutil, os.path
+                source_img = './static/images/temp/' + parameter_cover
+                target_img = './static/images/covers/' + '[' + str(temp_result['result']['article_id']) + ']' + parameter_cover
+
+                # 判断temp目录里有没有这个图片，如果有
+                if os.path.isfile(source_img):
+                    # 把图片移动到covers目录，并重命名
+                    shutil.move(source_img, target_img)
+                # 如果没有
+                else:
+                    from orm import orm_delete_article
+                    temp_delete_result = orm_delete_article.delete_article(temp_result['result']['article_id'])
+                    resp = {'status': 500, 'result': '图片没有上传成功，所以写入又删除'}
+                    return jsonify(resp)
 
                 return jsonify(temp_result)
 
