@@ -43,6 +43,6 @@ def initialize_orm():
     DBSession = sessionmaker(engine)
     session = DBSession()
 
-    # return {'dict_session': session, 'dict_user': User, 'dict_mailcode': Mailcode, 'dict_Articlelist': Articlelist}
+    return {'dict_session': session, 'dict_user': User, 'dict_mailcode': Mailcode, 'dict_Articlelist': Articlelist}
 
-    return Base.metadata.create_all(engine)
+    # return Base.metadata.create_all(engine)

@@ -10,6 +10,7 @@ from api import (
     api_login, 
     api_logout, 
     api_mailcode, 
+    api_read_article,
     api_reset_password, 
     api_save_article, 
     say_hello, 
@@ -34,6 +35,7 @@ app.register_blueprint(api_get_session.app)
 app.register_blueprint(api_login.app)
 app.register_blueprint(api_logout.app)
 app.register_blueprint(api_mailcode.app)
+app.register_blueprint(api_read_article.app)
 app.register_blueprint(api_reset_password.app)
 app.register_blueprint(api_save_article.app)
 app.register_blueprint(api_signup.app)

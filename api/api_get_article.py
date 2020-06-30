@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from flask import session, Blueprint, jsonify, request, abort
+from flask import Blueprint, jsonify, request, abort, current_app
 import json
 
 app = Blueprint('api_get_article', __name__)
@@ -17,6 +17,7 @@ def get_article():
     # 尝试把前端传来的参数解析成list
     try:
         temp_list = json.loads(articles_range)
+
         # 判断参数是否是list，并且只有2个元素
         if isinstance(temp_list, list) and len(temp_list) == 2:
             from orm import orm_get_article
@@ -26,5 +27,5 @@ def get_article():
             abort(400)
 
     except Exception as e:
+        current_app.logger.info(e)
         abort(400)
-

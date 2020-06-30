@@ -157,6 +157,10 @@
 # list(map(f_2, target))
 # print(temp_list)
 
+# session_length = session.query(Articlelist).count()
+
+# print(session_length)
+
 # session.close()
 
 # 测试生成数据库
@@ -179,13 +183,21 @@
 # shutil.move('../static/images/temp/dog.jpg','../static/images/covers/[1]dog.jpg')
 
 # 测试删除文件
-import re, os
+# import re, os
 
-a = "[1]fir.md"
+# a = "[1]fir.md"
 
-b = re.match(r'\[(\d+)\](.*)',a)
+# b = re.match(r'\[(\d+)\](.*)',a)
 
-print(b.group(2))
-
+# print(b.group(2))
 
 # os.remove('../static/articles/[1]1.md')
+
+# 测试读取md文件
+
+import glob
+article_id = '2'
+file_names = glob.glob('../static/articles/' + '[[]' + article_id + '[]]' + '*.md')[0]
+
+with open(file_names) as f:
+    print(f.read())

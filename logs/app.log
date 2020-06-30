@@ -32,3 +32,7 @@
 2020-06-29 21:24:30,131 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
 2020-06-29 21:26:01,554 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
 2020-06-29 21:26:06,308 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
+2020-06-30 16:29:59,204 - INFO - api_read_article.py - read_article - 19 - list index out of range
+2020-06-30 16:30:07,439 - INFO - api_read_article.py - read_article - 19 - list index out of range
+2020-06-30 16:34:29,247 - INFO - api_read_article.py - read_article - 19 - expected str, bytes or os.PathLike object, not list
+2020-06-30 16:35:18,152 - INFO - api_read_article.py - read_article - 22 - expected str, bytes or os.PathLike object, not list
