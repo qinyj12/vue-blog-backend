@@ -39,7 +39,7 @@ def saveArticle():
             # 给这篇文章创建一个专属目录
             try:
                 import os
-                article_folder = current_app.article_path + str(temp_result['result']['article_id'])
+                article_folder = current_app.article_path + str(temp_result['result']['article_id']) +'/'
                 os.mkdir(article_folder)
             # 如果创建失败
             except Exception as e:
@@ -57,10 +57,10 @@ def saveArticle():
 
                 # 判断temp目录里有没有这个图片，如果有
                 if os.path.isfile(source_img):
-                    # 把图片移动到covers目录，并重命名
+                    # 把图片移动到article目录，并重命名
                     shutil.move(source_img, target_img)
 
-                # 如果没有
+                # 如果temp目录里没有这个图片，就要调用删除接口
                 else:
                     from orm import orm_delete_article
                     temp_delete_result = orm_delete_article.delete_article(temp_result['result']['article_id'])
@@ -68,12 +68,14 @@ def saveArticle():
                     return jsonify(resp)
 
                 # 尝试保存content_md为md格式
-                file_name = current_app.article_path + str(temp_result['result']['article_id']) + '_' + parameter_title + '/' + parameter_title + '.md'
-                with open(file_name , 'w') as f:
+                file_md = article_folder + str(temp_result['result']['article_id']) + '_' + parameter_title + '.md'
+                with open(file_md , 'w') as f:
                     f.write(parameter_md)
 
                 # 尝试保存content_html为html格式
-
+                file_html = article_folder + str(temp_result['result']['article_id']) + '_' + parameter_title + '.html'
+                with open(file_html, 'w') as f:
+                    f.write(parameter_html)
 
                 return jsonify(temp_result)
 
@@ -92,4 +94,4 @@ def saveArticle():
 
         # 如果状态码不正常，即没有成功保存到articl表里，那就没必要存md了
         else:
-            return temp_result
+            return jsonify(temp_result)

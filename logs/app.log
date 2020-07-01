@@ -36,3 +36,13 @@
 2020-06-30 16:30:07,439 - INFO - api_read_article.py - read_article - 19 - list index out of range
 2020-06-30 16:34:29,247 - INFO - api_read_article.py - read_article - 19 - expected str, bytes or os.PathLike object, not list
 2020-06-30 16:35:18,152 - INFO - api_read_article.py - read_article - 22 - expected str, bytes or os.PathLike object, not list
+2020-06-30 22:15:52,887 - INFO - api_read_article.py - read_article - 19 - list index out of range
+2020-07-01 22:11:38,526 - INFO - api_save_article.py - saveArticle - 46 - unsupported operand type(s) for +: 'int' and 'str'
+2020-07-01 22:13:02,091 - INFO - api_save_article.py - saveArticle - 46 - can only concatenate str (not "int") to str
+2020-07-01 22:13:52,137 - INFO - api_save_article.py - saveArticle - 84 - can only concatenate str (not "int") to str
+2020-07-01 22:13:52,174 - INFO - orm_delete_article.py - delete_article - 33 - can only concatenate str (not "int") to str
+2020-07-01 22:16:27,688 - INFO - api_save_article.py - saveArticle - 84 - can only concatenate str (not "int") to str
+2020-07-01 22:16:27,700 - INFO - orm_delete_article.py - delete_article - 33 - can only concatenate str (not "int") to str
+2020-07-01 22:24:10,359 - INFO - api_read_article.py - read_article - 19 - list index out of range
+2020-07-01 22:24:12,569 - INFO - api_read_article.py - read_article - 19 - list index out of range
+2020-07-01 22:25:57,714 - INFO - api_read_article.py - read_article - 19 - list index out of range

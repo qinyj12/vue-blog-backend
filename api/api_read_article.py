@@ -8,10 +8,10 @@ def read_article(article_id):
     # 拿到博客id后，去目录下找对应的文件名
     import glob
     try:
-        target_article_filename = glob.glob('./static/articles/' + '[[]' + article_id + '[]]' + '*.md')[0]
+        target_article_html = glob.glob('./static/articles/'+article_id+'/'+article_id+'_*.html')[0]
 
         # 读取这个文件
-        with open(target_article_filename) as f:
+        with open(target_article_html) as f:
             resp = {'status': 200, 'result': f.read()}
             return jsonify(resp)
 

@@ -207,5 +207,6 @@
 # with open(file_name, 'w'):
 #     pass
 
-import os
-os.mkdir('../static/articles/1/')
+import glob
+target = glob.glob('../static/articles/1/1_*.txt')
+print(target)
