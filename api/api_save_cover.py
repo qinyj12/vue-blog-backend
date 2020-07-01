@@ -9,16 +9,14 @@ def savecover():
         #获取图片文件 name = file
         img = request.files.get('file')
 
-        #定义一个图片存放的位置 存放在static下面
-        path = "./static/images/temp/"
         #图片名称
-        imgName = img.filename
+        img_name = img.filename
         #图片path和名称组成图片的保存路径
-        file_path = path + imgName
+        file_path = current_app.temporary_path + img_name
         #保存图片
         img.save(file_path)
 
-        resp = {'status': 200, 'result': imgName}
+        resp = {'status': 200, 'result': img_name}
         return jsonify(resp)
 
     except Exception as e:

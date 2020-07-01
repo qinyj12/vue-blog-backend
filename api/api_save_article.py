@@ -8,9 +8,12 @@ app = Blueprint('api_save_article', __name__)
 def saveArticle():
     # 判断是不是管理员（id==1）
     session_user_id = session.get('user_id')
+
+    # 如果不是管理员
     if session_user_id != 1:
         abort(401)
 
+    # 如果是管理员
     else:
         # 获取时间、标题、摘要、头像名、md正文
         if request.method == 'POST':
@@ -19,7 +22,8 @@ def saveArticle():
             parameter_title = request.form.get('title')
             parameter_abstract = request.form.get('abstract')
             parameter_avatar = request.form.get('avatar')
-            parameter_content = request.form.get('content')
+            parameter_md = request.form.get('content_md')
+            parameter_html = request.form.get('content_html')
             parameter_cover = request.form.get('cover')
         # 因为本来就不允许其他方法，所以直接pass也没关系
         else:
@@ -29,14 +33,27 @@ def saveArticle():
         from orm import orm_save_article
         temp_result = orm_save_article.save_article(parameter_title, parameter_abstract, parameter_avatar, parameter_cover, parameter_time)
 
-        # 如果状态码正常，
+        # 如果文章信息成功保存到数据库
         if temp_result['status'] == 200:
 
+            # 给这篇文章创建一个专属目录
             try:
-                # 尝试把temp目录里的图片移动到covers目录
+                import os
+                article_folder = current_app.article_path + str(temp_result['result']['article_id'])
+                os.mkdir(article_folder)
+            # 如果创建失败
+            except Exception as e:
+                current_app.logger.info(e)
+                resp = {'status': 500, 'result': '服务器出错了'}
+                return jsonify(resp)
+
+            # 尝试把temporary目录里的图片移动到covers目录
+            try:
                 import shutil, os.path
-                source_img = './static/images/temp/' + parameter_cover
-                target_img = './static/images/covers/' + '[' + str(temp_result['result']['article_id']) + ']' + parameter_cover
+                # 找到temporary文件夹下的临时cover图
+                source_img = current_app.temporary_path + parameter_cover
+
+                target_img = article_folder + parameter_cover
 
                 # 判断temp目录里有没有这个图片，如果有
                 if os.path.isfile(source_img):
@@ -50,10 +67,13 @@ def saveArticle():
                     resp = {'status': 500, 'result': '图片没有上传成功，所以写入又删除'}
                     return jsonify(resp)
 
-                # 尝试保存content为md格式
-                file_name = './static/articles/' + '[' + str(temp_result['result']['article_id']) + ']' + parameter_title + '.md'
+                # 尝试保存content_md为md格式
+                file_name = current_app.article_path + str(temp_result['result']['article_id']) + '_' + parameter_title + '/' + parameter_title + '.md'
                 with open(file_name , 'w') as f:
-                    f.write(parameter_content)
+                    f.write(parameter_md)
+
+                # 尝试保存content_html为html格式
+
 
                 return jsonify(temp_result)
 

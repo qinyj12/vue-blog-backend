@@ -26,6 +26,10 @@ app.logger.addHandler(config_logger.initialize_logger())
 # 引入邮箱验证码的配置文件
 app.mailcode_validity = config_mailcode.Config().validity
 app.mailcode_too_often = config_mailcode.Config().too_often
+# 引入article所在的路径配置
+app.article_path = config_mailcode.Config().article_path
+# 引入临时文件夹
+app.temporary_path = config_mailcode.Config().temporary_path
 
 # 注册蓝图
 app.register_blueprint(api_check_code.app)

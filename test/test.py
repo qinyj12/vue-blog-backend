@@ -194,10 +194,18 @@
 # os.remove('../static/articles/[1]1.md')
 
 # 测试读取md文件
+# import glob
+# article_id = '2'
+# file_names = glob.glob('../static/articles/' + '[[]' + article_id + '[]]' + '*.md')[0]
 
-import glob
-article_id = '2'
-file_names = glob.glob('../static/articles/' + '[[]' + article_id + '[]]' + '*.md')[0]
+# with open(file_names) as f:
+#     print(f.read())
 
-with open(file_names) as f:
-    print(f.read())
+# 测试生成文件
+# file_name = '../static/articles/test.txt'
+
+# with open(file_name, 'w'):
+#     pass
+
+import os
+os.mkdir('../static/articles/1/')
