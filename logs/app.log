@@ -46,3 +46,10 @@
 2020-07-01 22:24:10,359 - INFO - api_read_article.py - read_article - 19 - list index out of range
 2020-07-01 22:24:12,569 - INFO - api_read_article.py - read_article - 19 - list index out of range
 2020-07-01 22:25:57,714 - INFO - api_read_article.py - read_article - 19 - list index out of range
+2020-07-02 18:02:27,813 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
+2020-07-02 18:03:29,269 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
+2020-07-02 18:07:28,287 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
+2020-07-02 18:07:46,435 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
+2020-07-02 18:16:07,459 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
+2020-07-02 18:20:14,383 - INFO - api_save_md_img.py - savecover - 23 - 'NoneType' object has no attribute 'save'
+2020-07-02 18:20:42,070 - INFO - api_save_md_img.py - savecover - 23 - 'NoneType' object has no attribute 'save'

@@ -13,6 +13,7 @@ from api import (
     api_read_article,
     api_reset_password, 
     api_save_article, 
+    api_save_md_img,
     say_hello, 
     api_signup,
     api_save_cover
@@ -45,6 +46,7 @@ app.register_blueprint(api_save_article.app)
 app.register_blueprint(api_signup.app)
 app.register_blueprint(say_hello.app)
 app.register_blueprint(api_save_cover.app)
+app.register_blueprint(api_save_md_img.app)
 
 CORS(app, supports_credentials=True)
 
