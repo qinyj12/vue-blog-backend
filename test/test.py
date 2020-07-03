@@ -207,6 +207,34 @@
 # with open(file_name, 'w'):
 #     pass
 
-import glob
-target = glob.glob('../static/articles/1/1_*.txt')
-print(target)
+# import glob
+# target = glob.glob('../static/articles/1/1_*.txt')
+# print(target)
+
+# import shutil
+# shutil.rmtree('../static/temporary/demo.txt')
+
+# a = 'http://127.0.0.1:5000/static/articles/temporary/img/1593748788.jpg'
+# print('/'.join(a.split('/')[3:]))
+# print(a.split('/'))
+# print(a.split(b))
+
+# import os
+# os.rename('../static/articles', '../static/article')
+
+import sys
+sys.path.append('../')
+from config import config_test_orm
+# config_test_orm.initialize_orm()
+
+session = config_test_orm.initialize_orm()['dict_session']
+user = config_test_orm.initialize_orm()['dict_user']
+comment = config_test_orm.initialize_orm()['dict_comments']
+
+user = session.query(user).filter_by(id = 1).first()
+print(user.nickname)
+print(user.relate_comments)
+
+comment = session.query(comment).filter_by(id = 1).first()
+print(comment.content)
+print(comment.relate_user)

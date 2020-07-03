@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from flask import session, request, Blueprint, jsonify, current_app, abort
-import datetime
+import datetime, os, shutil
 
 app = Blueprint('api_save_article', __name__)
 
@@ -35,63 +35,32 @@ def saveArticle():
 
         # 如果文章信息成功保存到数据库
         if temp_result['status'] == 200:
-
-            # 给这篇文章创建一个专属目录
             try:
-                import os
-                article_folder = current_app.article_path + str(temp_result['result']['article_id']) +'/'
-                os.mkdir(article_folder)
-            # 如果创建失败
-            except Exception as e:
-                current_app.logger.info(e)
-                resp = {'status': 500, 'result': '服务器出错了'}
-                return jsonify(resp)
-
-            # 尝试把temporary目录里的图片移动到covers目录
-            try:
-                import shutil, os.path
-                # 找到temporary文件夹下的临时cover图
-                source_img = current_app.temporary_path + parameter_cover
-
-                target_img = article_folder + parameter_cover
-
-                # 判断temp目录里有没有这个图片，如果有
-                if os.path.isfile(source_img):
-                    # 把图片移动到article目录，并重命名
-                    shutil.move(source_img, target_img)
-
-                # 如果temp目录里没有这个图片，就要调用删除接口
-                else:
-                    from orm import orm_delete_article
-                    temp_delete_result = orm_delete_article.delete_article(temp_result['result']['article_id'])
-                    resp = {'status': 500, 'result': '图片没有上传成功，所以写入又删除'}
-                    return jsonify(resp)
-
                 # 尝试保存content_md为md格式
-                file_md = article_folder + str(temp_result['result']['article_id']) + '_' + parameter_title + '.md'
+                file_md = current_app.temporary_path + str(temp_result['result']['article_id']) + '_' + parameter_title + '.md'
                 with open(file_md , 'w') as f:
                     f.write(parameter_md)
 
                 # 尝试保存content_html为html格式
-                file_html = article_folder + str(temp_result['result']['article_id']) + '_' + parameter_title + '.html'
+                file_html = current_app.temporary_path + str(temp_result['result']['article_id']) + '_' + parameter_title + '.html'
                 with open(file_html, 'w') as f:
                     f.write(parameter_html)
 
-                return jsonify(temp_result)
+                # 重命名temporary目录为article_id
+                target_path = '/'.join(current_app.temporary_path.split('/')[:3])
+                os.rename(current_app.temporary_path, target_path + '/' + str(temp_result['result']['article_id']))
 
-            # 如果发生意想不到的错误
-            except Exception as e:
-                current_app.logger.info(e)
-                # 把article表的那个数据删除
-                from orm import orm_delete_article
-                temp_delete_result = orm_delete_article.delete_article(temp_result['result']['article_id'])
-
-                resp = {
-                    'status': 500,
-                    'result': '写入又删除，啥也没干成'
-                }
+                resp = {'status': 200, 'result': '保存成功'}
                 return jsonify(resp)
 
-        # 如果状态码不正常，即没有成功保存到articl表里，那就没必要存md了
+            # 如果出错的话，删除数据库记录
+            except Exception as e:
+                current_app.logger.info(e)
+                from orm import orm_delete_article
+                temp_delete_result = orm_delete_article.delete_article(temp_result['result']['article_id'])
+                resp = {'status': 500, 'result': '写入又删除，啥也没干成'}
+                return jsonify(resp)
+
+        # 如果状态码不正常，即没有成功保存到articl表里，直接返回
         else:
             return jsonify(temp_result)

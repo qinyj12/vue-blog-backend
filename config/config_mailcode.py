@@ -10,4 +10,4 @@ class Config(object):
         # 定义博客md、html所在的路径
         self.article_path = './static/articles/'
         # 定义一个临时文件夹，用来存放上传的图片
-        self.temporary_path = './static/temporary/'
+        self.temporary_path = './static/articles/temporary/'

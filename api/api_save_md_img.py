@@ -1,22 +1,37 @@
 # -*- coding: UTF-8 -*-
 from flask import request, Blueprint, jsonify, current_app
+import os, shutil, time
 
 app = Blueprint('api_save_md_img', __name__)
  
 @app.route('/saveimg',methods=['POST'])
-def savecover():
+def save_img():
+    # 判断存不存在temporary目录，如果存在
+    if os.path.exists(current_app.temporary_path):
+        # 判断存不存在temporary/img目录，如果存在，啥都不能干，因为不能删除内部的文件
+        if os.path.exists(current_app.temporary_path + 'img'):
+            pass
+        # 如果不存在temporary/img目录
+        else:
+            #创建img目录
+            os.mkdir(current_app.temporary_path + 'img')
+
+    # 如果不存在，创建temporary目录和temporary/img目录
+    else:
+        os.mkdir(current_app.temporary_path)
+        os.mkdir(current_app.temporary_path + 'img')
+
     try:
         #获取图片文件 name = file
-        img = request.files.get('file')
-
-        #图片名称
-        img_name = '1.jpg'
-        #图片path和名称组成图片的保存路径
-        file_path = current_app.temporary_path + img_name
+        img = request.files.get('image')
+        #拿到图片原名称
+        img_name = img.filename
+        #拿到图片的后缀名，以时间戳重命名，保存到temporary/img目录
+        file_path = current_app.temporary_path + 'img/' + str(round(time.time())) + '.' + img_name.split('.')[-1]
         #保存图片
         img.save(file_path)
 
-        resp = {'status': 200, 'result': img_name}
+        resp = {'status': 200, 'result': file_path}
         return jsonify(resp)
 
     except Exception as e:

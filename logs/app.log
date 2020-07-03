@@ -1,55 +1,19 @@
-2020-06-25 16:39:31,734 - INFO - say_hello.py - say_hello - 12 - say hello
-2020-06-25 16:39:47,389 - INFO - say_hello.py - say_hello - 12 - say hello
-2020-06-25 16:40:39,439 - INFO - say_hello.py - say_hello - 12 - say hello
-2020-06-25 16:46:45,181 - INFO - api_login.py - login - 39 - 404
-2020-06-26 10:01:00,987 - INFO - say_hello.py - say_hello - 12 - say hello
-2020-06-26 14:38:45,952 - INFO - api_signup.py - signup - 31 - email has been signed
-2020-06-26 15:22:04,820 - INFO - api_logout.py - clear_session - 20 - 'Flask' object has no attribute 'session'
-2020-06-26 15:22:49,302 - INFO - api_logout.py - clear_session - 20 - 'Flask' object has no attribute 'session'
-2020-06-26 15:29:23,419 - INFO - say_hello.py - say_hello - 12 - say hello
-2020-06-26 15:39:22,769 - INFO - api_reset_password.py - reset_password - 29 - code error
-2020-06-26 17:12:30,579 - INFO - api_mailcode.py - send_mail - 54 - too often
-2020-06-26 17:27:15,439 - INFO - api_mailcode.py - send_mail - 58 - temp_email.html
-2020-06-26 17:57:31,131 - INFO - api_mailcode.py - send_mail - 52 - (502, b'Invalid input from 2408:84e1:c4:c624:a18b:bc65:558:cd4a to newxmesmtplogicsvrsza5.qq.com.', '=?utf-8?b?5rGq5Za15bel5Z2K?=')
-2020-06-26 17:57:47,890 - INFO - api_mailcode.py - send_mail - 52 - (502, b'Invalid input from 2408:84e1:c4:c624:a18b:bc65:558:cd4a to newxmesmtplogicsvrsza9.qq.com.', '=?utf-8?b?5rGq5Za15bel5Z2K?=')
-2020-06-26 18:36:21,767 - INFO - orm_save_article.py - save_article - 34 - Instance <Articlelist at 0x4d19fd0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: http://sqlalche.me/e/bhk3)
-2020-06-26 21:19:48,085 - INFO - api_save_article.py - saveArticle - 37 - can only concatenate str (not "int") to str
-2020-06-26 21:38:56,831 - INFO - api_save_article.py - saveArticle - 40 - [Errno 2] No such file or directory: '../static/articles/1_第一篇博客.md'
-2020-06-26 21:48:25,882 - INFO - api_save_article.py - saveArticle - 38 - [Errno 2] No such file or directory: '../static/articles/1_第一篇博客.md'
-2020-06-26 21:48:25,901 - INFO - orm_delete_article.py - delete_article - 27 - Instance '<Articlelist at 0x47faf70>' is not persisted
-2020-06-26 22:02:12,126 - INFO - api_save_article.py - saveArticle - 38 - [Errno 2] No such file or directory: '../static/articles/1_第一篇博客.md'
-2020-06-26 22:02:12,144 - INFO - orm_delete_article.py - delete_article - 28 - type object 'Articlelist' has no attribute 'query'
-2020-06-26 22:02:58,404 - INFO - api_save_article.py - saveArticle - 38 - [Errno 2] No such file or directory: '../static/articles/1_第一篇博客.md'
-2020-06-26 22:02:58,422 - INFO - orm_delete_article.py - delete_article - 28 - type object 'Articlelist' has no attribute 'query'
-2020-06-26 22:04:31,443 - INFO - api_save_article.py - saveArticle - 38 - [Errno 2] No such file or directory: '../static/articles/1_第一篇博客.md'
-2020-06-26 22:04:31,463 - INFO - orm_delete_article.py - delete_article - 28 - Class 'sqlalchemy.orm.query.Query' is not mapped
-2020-06-26 22:05:40,578 - INFO - api_save_article.py - saveArticle - 38 - [Errno 2] No such file or directory: '../static/articles/1_第一篇博客.md'
-2020-06-28 15:56:58,794 - INFO - say_hello.py - say_hello - 12 - say hello
-2020-06-28 16:00:27,872 - INFO - orm_get_article.py - get_article - 25 - 'NoneType' object has no attribute 'sort'
-2020-06-28 16:00:52,637 - INFO - orm_get_article.py - get_article - 25 - 'NoneType' object has no attribute 'sort'
-2020-06-29 21:17:03,779 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
-2020-06-29 21:24:00,875 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
-2020-06-29 21:24:30,131 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
-2020-06-29 21:26:01,554 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
-2020-06-29 21:26:06,308 - INFO - api_save_cover.py - savecover - 25 - [Errno 2] No such file or directory: './static/images/temp/dog.jpg'
-2020-06-30 16:29:59,204 - INFO - api_read_article.py - read_article - 19 - list index out of range
-2020-06-30 16:30:07,439 - INFO - api_read_article.py - read_article - 19 - list index out of range
-2020-06-30 16:34:29,247 - INFO - api_read_article.py - read_article - 19 - expected str, bytes or os.PathLike object, not list
-2020-06-30 16:35:18,152 - INFO - api_read_article.py - read_article - 22 - expected str, bytes or os.PathLike object, not list
-2020-06-30 22:15:52,887 - INFO - api_read_article.py - read_article - 19 - list index out of range
-2020-07-01 22:11:38,526 - INFO - api_save_article.py - saveArticle - 46 - unsupported operand type(s) for +: 'int' and 'str'
-2020-07-01 22:13:02,091 - INFO - api_save_article.py - saveArticle - 46 - can only concatenate str (not "int") to str
-2020-07-01 22:13:52,137 - INFO - api_save_article.py - saveArticle - 84 - can only concatenate str (not "int") to str
-2020-07-01 22:13:52,174 - INFO - orm_delete_article.py - delete_article - 33 - can only concatenate str (not "int") to str
-2020-07-01 22:16:27,688 - INFO - api_save_article.py - saveArticle - 84 - can only concatenate str (not "int") to str
-2020-07-01 22:16:27,700 - INFO - orm_delete_article.py - delete_article - 33 - can only concatenate str (not "int") to str
-2020-07-01 22:24:10,359 - INFO - api_read_article.py - read_article - 19 - list index out of range
-2020-07-01 22:24:12,569 - INFO - api_read_article.py - read_article - 19 - list index out of range
-2020-07-01 22:25:57,714 - INFO - api_read_article.py - read_article - 19 - list index out of range
-2020-07-02 18:02:27,813 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
-2020-07-02 18:03:29,269 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
-2020-07-02 18:07:28,287 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
-2020-07-02 18:07:46,435 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
-2020-07-02 18:16:07,459 - INFO - api_save_cover.py - savecover - 23 - 'NoneType' object has no attribute 'filename'
-2020-07-02 18:20:14,383 - INFO - api_save_md_img.py - savecover - 23 - 'NoneType' object has no attribute 'save'
-2020-07-02 18:20:42,070 - INFO - api_save_md_img.py - savecover - 23 - 'NoneType' object has no attribute 'save'
+2020-07-03 17:46:28,750 - INFO - orm_get_article.py - get_article - 27 - When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
+2020-07-03 17:46:28,787 - INFO - orm_get_user_info.py - get_user_info - 32 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
+2020-07-03 17:57:46,216 - INFO - orm_get_article.py - get_article - 27 - When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
+2020-07-03 17:57:46,246 - INFO - orm_get_user_info.py - get_user_info - 32 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
+2020-07-03 17:58:44,853 - INFO - orm_get_article.py - get_article - 27 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
+2020-07-03 17:58:44,859 - INFO - orm_get_user_info.py - get_user_info - 32 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
+2020-07-03 17:58:51,395 - INFO - orm_get_article.py - get_article - 27 - When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
+2020-07-03 17:58:51,416 - INFO - orm_get_user_info.py - get_user_info - 32 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
+2020-07-03 18:02:39,648 - INFO - orm_get_article.py - get_article - 27 - relationship 'foreign_to_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:02:39,685 - INFO - orm_get_user_info.py - get_user_info - 32 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: relationship 'foreign_to_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:02:44,263 - INFO - orm_get_article.py - get_article - 27 - relationship 'foreign_to_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:02:44,294 - INFO - orm_get_user_info.py - get_user_info - 32 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: relationship 'foreign_to_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:15:36,899 - INFO - orm_get_article.py - get_article - 27 - relationship 'relate_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:15:36,951 - INFO - api_get_session.py - get_session - 30 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: relationship 'relate_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:16:27,771 - INFO - orm_get_article.py - get_article - 27 - relationship 'relate_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:17:16,735 - INFO - orm_get_article.py - get_article - 27 - relationship 'relate_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:17:33,841 - INFO - orm_get_article.py - get_article - 27 - relationship 'relate_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:17:36,764 - INFO - orm_get_article.py - get_article - 27 - One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class User->user'. Original exception was: relationship 'relate_comments' expects a class or a mapper argument (received: <class 'sqlalchemy.sql.schema.Table'>)
+2020-07-03 18:19:07,619 - INFO - orm_get_article.py - get_article - 27 - When initializing mapper mapped class User->user, expression 'Comments' failed to locate a name ('Comments'). If this is a class name, consider adding this relationship() to the <class 'config.config_orm_initial.initialize_orm.<locals>.User'> class after both dependent classes have been defined.
