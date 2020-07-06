@@ -230,11 +230,22 @@ from config import config_test_orm
 session = config_test_orm.initialize_orm()['dict_session']
 user = config_test_orm.initialize_orm()['dict_user']
 comment = config_test_orm.initialize_orm()['dict_comments']
+article = config_test_orm.initialize_orm()['dict_Articlelist']
 
-user = session.query(user).filter_by(id = 1).first()
-print(user.nickname)
-print(user.relate_comments)
+user_1 = session.query(user).filter_by(id = 1).first()
+user_2 = session.query(user).filter_by(id = 2).first()
+# print(user.nickname)
+# print('user_1的评论: ' + str(list(map(lambda x: x.content, user_1.relate_comments))))
+# print('user_2的评论: ' + str(list(map(lambda x: x.content, user_2.relate_comments))))
 
-comment = session.query(comment).filter_by(id = 1).first()
-print(comment.content)
-print(comment.relate_user)
+# comment_1 = session.query(comment).filter_by(id = 1).first()
+# print(comment_1.relate_article.title)
+
+article_1 = session.query(article).filter_by(id = 1).first()
+print(list(map(lambda x: x.content, article_1.relate_comments)))
+
+session.close()
+
+# comment = session.query(comment).filter_by(id = 1).first()
+# print(comment.content)
+# print(comment.relate_user)

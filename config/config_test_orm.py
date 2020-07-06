@@ -28,6 +28,7 @@ def initialize_orm():
         time = Column(String(20), nullable = False) # 文章发布的时间
         views = Column(Integer,  nullable = False) # 文章阅读量
         comments = Column(Integer,  nullable = False) # 文章评论量
+        relate_comments = relationship('Comments', backref='relate_article', lazy='dynamic')
 
     # 评论列表
     class Comments(Base):
@@ -36,7 +37,7 @@ def initialize_orm():
         content = Column(String(20), nullable = False)
         time = Column(String(20), nullable = False)
         user_id = Column(Integer, ForeignKey('user.id'))
-
+        article_id = Column(Integer, ForeignKey('article_list.id'))
 
 
     # Mailcode表
