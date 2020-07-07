@@ -224,13 +224,16 @@ sys.path.append('../')
 from config import config_test_orm
 # config_test_orm.initialize_orm()
 
-session = config_test_orm.initialize_orm()['dict_session']
-user = config_test_orm.initialize_orm()['dict_user']
-comment = config_test_orm.initialize_orm()['dict_comments']
-article = config_test_orm.initialize_orm()['dict_Articlelist']
+run_orm = config_test_orm.initialize_orm()
 
-temp_target = session.query(user).filter(user.email == '1562555013@qq.com').first()
-print(temp_target)
+session = run_orm['dict_session']
+user = run_orm['dict_user']
+comment = run_orm['dict_comments']
+article = run_orm['dict_Articlelist']
+
+target_article = session.query(article).filter(article.id == 1).first()
+print(target_article.relate_comments)
+session.close()
 
 # # user_1 = session.query(user).filter_by(id = 1).first()
 # # user_2 = session.query(user).filter_by(id = 2).first()

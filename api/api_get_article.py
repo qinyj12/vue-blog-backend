@@ -12,7 +12,7 @@ def get_article():
     elif request.method == 'POST':
         articles_range = request.form.get('articles_for_single')
     else:
-        pass
+        return
 
     # 尝试把前端传来的参数解析成list
     try:

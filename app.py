@@ -17,7 +17,8 @@ from api import (
     api_delete_md_img,
     say_hello, 
     api_signup,
-    api_save_cover
+    api_save_cover,
+    api_get_comments
 )
 
 app = Flask(__name__)
@@ -49,6 +50,7 @@ app.register_blueprint(say_hello.app)
 app.register_blueprint(api_save_cover.app)
 app.register_blueprint(api_save_md_img.app)
 app.register_blueprint(api_delete_md_img.app)
+app.register_blueprint(api_get_comments.app)
 
 CORS(app, supports_credentials=True)
 
