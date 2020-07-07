@@ -15,7 +15,7 @@ def initialize_orm():
         avatar = Column(String(20), nullable = False)
         timestamp = Column(Integer, nullable = False)
         format_updated_time = Column(String(20), nullable = True)
-        relate_comments = relationship('Comments', backref='relate_user', lazy='dynamic')
+        # relate_comments = relationship('Comments', backref='relate_user', lazy='dynamic')
 
     # md文章列表
     class Articlelist(Base):
@@ -28,7 +28,7 @@ def initialize_orm():
         time = Column(String(20), nullable = False) # 文章发布的时间
         views = Column(Integer,  nullable = False) # 文章阅读量
         comments = Column(Integer,  nullable = False) # 文章评论量
-        relate_comments = relationship('Comments', backref='relate_article', lazy='dynamic')
+        # relate_comments = relationship('Comments', backref='relate_article', lazy='dynamic')
 
     # 评论列表
     class Comments(Base):
@@ -38,7 +38,8 @@ def initialize_orm():
         time = Column(String(20), nullable = False)
         user_id = Column(Integer, ForeignKey('user.id'))
         article_id = Column(Integer, ForeignKey('article_list.id'))
-
+        relate_article = relationship('Articlelist', backref='relate_comments')
+        relate_user = relationship('User', backref='relate_comments')
 
     # Mailcode表
     class Mailcode(Base):

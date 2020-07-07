@@ -219,9 +219,6 @@
 # print(a.split('/'))
 # print(a.split(b))
 
-# import os
-# os.rename('../static/articles', '../static/article')
-
 import sys
 sys.path.append('../')
 from config import config_test_orm
@@ -232,19 +229,22 @@ user = config_test_orm.initialize_orm()['dict_user']
 comment = config_test_orm.initialize_orm()['dict_comments']
 article = config_test_orm.initialize_orm()['dict_Articlelist']
 
-user_1 = session.query(user).filter_by(id = 1).first()
-user_2 = session.query(user).filter_by(id = 2).first()
-# print(user.nickname)
-# print('user_1的评论: ' + str(list(map(lambda x: x.content, user_1.relate_comments))))
-# print('user_2的评论: ' + str(list(map(lambda x: x.content, user_2.relate_comments))))
+temp_target = session.query(user).filter(user.email == '1562555013@qq.com').first()
+print(temp_target)
 
-# comment_1 = session.query(comment).filter_by(id = 1).first()
-# print(comment_1.relate_article.title)
+# # user_1 = session.query(user).filter_by(id = 1).first()
+# # user_2 = session.query(user).filter_by(id = 2).first()
+# # print(user.nickname)
+# # print('user_1的评论: ' + str(list(map(lambda x: x.content, user_1.relate_comments))))
+# # print('user_2的评论: ' + str(list(map(lambda x: x.content, user_2.relate_comments))))
 
-article_1 = session.query(article).filter_by(id = 1).first()
-print(list(map(lambda x: x.content, article_1.relate_comments)))
+# # comment_1 = session.query(comment).filter_by(id = 1).first()
+# # print(comment_1.relate_article.title)
 
-session.close()
+# # article_1 = session.query(article).filter_by(id = 1).first()
+# # print(list(map(lambda x: x.content, article_1.relate_comments)))
+
+# session.close()
 
 # comment = session.query(comment).filter_by(id = 1).first()
 # print(comment.content)

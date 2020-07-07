@@ -15,9 +15,9 @@ def signup():
         parameter_email = request.form.get('email')
         parameter_password = request.form.get('password')
         parameter_mailcode = request.form.get('mailcode')
-    # 本来就不允许其他方法，所以直接pass也没关系
+    # 本来就不允许其他方法，所以直接return也没关系
     else:
-        pass
+        return
 
     from orm import orm_signup
     temp_result = orm_signup.sign_up(parameter_nickname, parameter_email, parameter_password, parameter_mailcode)

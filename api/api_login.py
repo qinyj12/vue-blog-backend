@@ -15,9 +15,9 @@ def login():
     elif request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-    # 因为不允许其他方法，所以直接pass就好了
+    # 因为不允许其他方法，所以直接return就完了
     else:
-        pass
+        return
 
     # 拿到浏览器请求的email和password后，调用orm_login.login接口
     temp_result = orm_login.login(email, password)
