@@ -7,8 +7,6 @@ app = Blueprint('api_get_comments', __name__)
 @app.route('/comments/<article_id>', methods = ['POST'])
 def get_comments(article_id):
     comments_range = request.form.get('comments_for_single')
-    import sys
-    print(comments_range, file=sys.stderr)
     # 尝试把前端传来的参数解析成list
     try:
         temp_list = json.loads(comments_range)

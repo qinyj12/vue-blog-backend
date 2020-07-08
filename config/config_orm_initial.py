@@ -27,7 +27,8 @@ def initialize_orm():
         cover = Column(String(20), nullable = True) # 封面图
         time = Column(String(20), nullable = False) # 文章发布的时间
         views = Column(Integer,  nullable = False) # 文章阅读量
-        comments = Column(Integer,  nullable = False) # 文章评论量
+        comments = Column(Integer, nullable = False) # 文章评论量
+        if_done = Column(Integer, nullable = True) # 判断文章是否写完、并可以对外发布
         # relate_comments = relationship('Comments', backref='relate_article', lazy='dynamic')
 
     # 评论列表

@@ -3,8 +3,9 @@ from config import config_orm_initial
 from flask import current_app
 
 # 从config/config_orm_initial引入
-session = config_orm_initial.initialize_orm()['dict_session']
-Article_list = config_orm_initial.initialize_orm()['dict_Articlelist']
+orm = config_orm_initial.initialize_orm()
+session = orm['dict_session']
+Article_list = orm['dict_Articlelist']
 
 
 def delete_article(parameter_article_id):

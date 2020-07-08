@@ -6,9 +6,10 @@ from flask import current_app
 
 
 # 从config/config_orm_initial引入
-session = config_orm_initial.initialize_orm()['dict_session']
-Mailcode = config_orm_initial.initialize_orm()['dict_mailcode']
-User = config_orm_initial.initialize_orm()['dict_user']
+orm = config_orm_initial.initialize_orm()
+session = orm['dict_session']
+Mailcode = orm['dict_mailcode']
+User = orm['dict_user']
 
 # 保存邮件验证码到数据库
 def save_mail_code(parameter_email, parameter_purpose):

@@ -27,7 +27,8 @@ def save_img():
         #拿到图片原名称
         img_name = img.filename
         #拿到图片的后缀名，以时间戳重命名，保存到temporary/img目录
-        file_path = current_app.temporary_path + 'img/' + str(round(time.time())) + '.' + img_name.split('.')[-1]
+        part_of_path = 'img/' + str(round(time.time())) + '.' + img_name.split('.')[-1]
+        file_path = current_app.temporary_path + part_of_path
         #保存图片
         img.save(file_path)
 

@@ -4,9 +4,10 @@ from config import config_orm_initial
 from flask import current_app
 
 # 从config/config_orm_initial引入
-session = config_orm_initial.initialize_orm()['dict_session']
-User = config_orm_initial.initialize_orm()['dict_user']
-Mailcode = config_orm_initial.initialize_orm()['dict_mailcode']
+orm = config_orm_initial.initialize_orm()
+session = orm['dict_session']
+User = orm['dict_user']
+Mailcode = orm['dict_mailcode']
 # 重设密码
 def reset_password(parameter_email, parameter_code, parameter_pass):
     # 拿到邮箱验证码有效期

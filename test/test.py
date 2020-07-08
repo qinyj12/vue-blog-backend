@@ -219,10 +219,25 @@
 # print(a.split('/'))
 # print(a.split(b))
 
+# import sys
+# sys.path.append('../')
+# from config import config_test_orm
+
+# run_orm = config_test_orm.initialize_orm()
+
+# session = run_orm['dict_session']
+# user = run_orm['dict_user']
+# comment = run_orm['dict_comments']
+# article = run_orm['dict_Articlelist']
+
+# target_article = session.query(article).filter(article.id == 1).first()
+# print(target_article.relate_comments[0].content)
+# session.close()
+
+# 尝试给下一篇博客分配id
 import sys
 sys.path.append('../')
 from config import config_test_orm
-# config_test_orm.initialize_orm()
 
 run_orm = config_test_orm.initialize_orm()
 
@@ -231,24 +246,16 @@ user = run_orm['dict_user']
 comment = run_orm['dict_comments']
 article = run_orm['dict_Articlelist']
 
-target_article = session.query(article).filter(article.id == 1).first()
-print(target_article.relate_comments)
+undone_article = session.query(article).filter(article.id != 1)
+done_article = session.query(article).filter_by(if_done = 1)
+def get_last_article():
+    try:
+        latest_article = session.query(article)[-1]
+        return latest_article
+    except:
+# if undone_article.count() <= 1:
+#     print(done_article[0].id)
+#     print(undone_article[0].id + 1)
+print(latest_article.id)
+
 session.close()
-
-# # user_1 = session.query(user).filter_by(id = 1).first()
-# # user_2 = session.query(user).filter_by(id = 2).first()
-# # print(user.nickname)
-# # print('user_1的评论: ' + str(list(map(lambda x: x.content, user_1.relate_comments))))
-# # print('user_2的评论: ' + str(list(map(lambda x: x.content, user_2.relate_comments))))
-
-# # comment_1 = session.query(comment).filter_by(id = 1).first()
-# # print(comment_1.relate_article.title)
-
-# # article_1 = session.query(article).filter_by(id = 1).first()
-# # print(list(map(lambda x: x.content, article_1.relate_comments)))
-
-# session.close()
-
-# comment = session.query(comment).filter_by(id = 1).first()
-# print(comment.content)
-# print(comment.relate_user)

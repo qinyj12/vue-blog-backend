@@ -4,8 +4,9 @@ from config import config_orm_initial
 from flask import current_app
 
 # 从config/config_orm_initial引入orm配置
-session = config_orm_initial.initialize_orm()['dict_session']
-Mailcode = config_orm_initial.initialize_orm()['dict_mailcode']
+orm = config_orm_initial.initialize_orm()
+session = orm['dict_session']
+Mailcode = orm['dict_mailcode']
 
 # 定义核对邮件验证码的方法
 def check_code(parameter_email, parameter_code, parameter_purpose):

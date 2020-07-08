@@ -2,9 +2,10 @@
 from config import config_orm_initial
 from flask import current_app
 
-session = config_orm_initial.initialize_orm()['dict_session']
-Articlelist = config_orm_initial.initialize_orm()['dict_Articlelist']
-User = config_orm_initial.initialize_orm()['dict_user']
+orm = config_orm_initial.initialize_orm()
+session = orm['dict_session']
+Articlelist = orm['dict_Articlelist']
+User = orm['dict_user']
 
 def get_comments(article_id, comments_range):
     try:

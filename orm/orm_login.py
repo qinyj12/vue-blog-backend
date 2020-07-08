@@ -4,8 +4,9 @@ from config import config_orm_initial
 from flask import current_app
 
 # 从config/config_orm_initial引入orm配置
-session = config_orm_initial.initialize_orm()['dict_session']
-user = config_orm_initial.initialize_orm()['dict_user']
+orm = config_orm_initial.initialize_orm()
+session = orm['dict_session']
+user = orm['dict_user']
 
 #定义登录方法
 def login(parameter_email, parameter_password):

@@ -4,9 +4,10 @@ from flask import current_app
 
 # 从config/orm_initial引入
 from config import config_orm_initial
-session = config_orm_initial.initialize_orm()['dict_session']
-Mailcode = config_orm_initial.initialize_orm()['dict_mailcode']
-User = config_orm_initial.initialize_orm()['dict_user']
+orm = config_orm_initial.initialize_orm()
+session = orm['dict_session']
+Mailcode = orm['dict_mailcode']
+User = orm['dict_user']
 
 #注册
 def sign_up(parameter_name, parameter_email, parameter_password, parameter_code):

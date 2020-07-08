@@ -3,8 +3,9 @@ from flask import current_app
 
 # 从config/config_orm_initial引入orm配置
 from config import config_orm_initial
-session = config_orm_initial.initialize_orm()['dict_session']
-Articlelist = config_orm_initial.initialize_orm()['dict_Articlelist']
+orm = config_orm_initial.initialize_orm()
+session = orm['dict_session']
+Articlelist = orm['dict_Articlelist']
 
 def get_article(articles_range):
     try:
