@@ -1,17 +1,38 @@
 # -*- coding: UTF-8 -*-
 from config import config_orm_initial
-from flask import current_app
+from flask import current_app, abort
+from orm import orm_get_next_article_id
 
 # 从config/config_orm_initial引入
 orm = config_orm_initial.initialize_orm()
 session = orm['dict_session']
 Article_list = orm['dict_Articlelist']
 
+# 从orm/orm_get_next_article_id引入
+current_article_id = orm_get_next_article_id.return_next_article_id()
+temp_status = current_article_id['status']
+temp_id = current_article_id['result']
+
 
 def save_article(parameter_title, parameter_abstract, parameter_avatar, parameter_cover, parameter_time):
-    # 保存正文id（自增主键）、标题、摘要、头像名、时间到数据库
-    try:
+    # 如果current_article_id返回的status是201，代表是改记录而不是增记录，直接把这条记录删除
+    if temp_status == 201:
+        target_record = session.query(Article_list).filter_by(id = temp_id).one()
+        try:
+            session.delete(target_record)
+            session.commit()
+            session.close()
+            return {'status': 200, 'result': temp_id}
+        except Exception as e:
+            current_app.logger.info(e)
+            session.rollback()
+            session.close()
+            abort(500)
+
+    # 如果next_id返回的status是200，就代表要新增一条记录
+    else:
         new_article = Article_list(
+            id = temp_id,
             title = parameter_title,
             abstract = parameter_abstract,
             avatar = parameter_avatar,
@@ -20,22 +41,13 @@ def save_article(parameter_title, parameter_abstract, parameter_avatar, paramete
             views = 0,
             comments = 0
         )
-        session.add(new_article)
-        session.commit()
-        # 要先拿到id，然后再close，不然就拿不到了
-        article_id = new_article.id
-        session.close()
-        return {
-            'status': 200, 
-            'result': {
-                'result': '保存成功',
-                'article_id': article_id
-            }
-        }
-
-    # 如果发生未知错误
-    except Exception as e:
-        session.rollback()
-        session.close()
-        current_app.logger.info(e)
-        return {'status': 500 , 'result': '服务器错误'}
+        try:
+            session.add(new_article)
+            session.commit()
+            session.close()
+            return {'status': 200, 'result': temp_id}
+        except Exception as e:
+            current_app.logger.info(e)
+            session.rollback()
+            session.close()
+            abort(500)

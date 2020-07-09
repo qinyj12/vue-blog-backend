@@ -25,9 +25,9 @@ def saveArticle():
             parameter_md = request.form.get('content_md')
             parameter_html = request.form.get('content_html')
             parameter_cover = request.form.get('cover')
-        # 因为本来就不允许其他方法，所以直接pass也没关系
+        # 因为本来就不允许其他方法，所以直接return也没关系
         else:
-            pass
+            return
 
         # 保存正文id（自增主键）、标题、摘要、头像名、时间到数据库
         from orm import orm_save_article
@@ -36,19 +36,23 @@ def saveArticle():
         # 如果文章信息成功保存到数据库
         if temp_result['status'] == 200:
             try:
-                # 尝试保存content_md为md格式
-                file_md = current_app.temporary_path + str(temp_result['result']['article_id']) + '_' + parameter_title + '.md'
-                with open(file_md , 'w') as f:
+                # 尝试保存parameter_md为md格式。temp_result['result']就是article的id
+                md_path = current_app.article_path + str(temp_result['result']) + '/md/'
+                md_filename = parameter_title + '.md'
+                with open(md_path + md_filename, 'w') as f:
                     f.write(parameter_md)
 
-                # 尝试保存content_html为html格式
-                file_html = current_app.temporary_path + str(temp_result['result']['article_id']) + '_' + parameter_title + '.html'
-                with open(file_html, 'w') as f:
+                # 尝试保存parameter_html为html格式
+                html_path = current_app.article_path + str(temp_result['result']) + '/html/'
+                html_filename = parameter_title + '.html'
+                with open(html_path + html_filename, 'w') as f:
                     f.write(parameter_html)
 
-                # 重命名temporary目录为article_id
-                target_path = '/'.join(current_app.temporary_path.split('/')[:3])
-                os.rename(current_app.temporary_path, target_path + '/' + str(temp_result['result']['article_id']))
+                # 把这个id的记录改成if_done=1
+                # ############################################################
+
+
+
 
                 resp = {'status': 200, 'result': '保存成功'}
                 return jsonify(resp)
@@ -57,7 +61,7 @@ def saveArticle():
             except Exception as e:
                 current_app.logger.info(e)
                 from orm import orm_delete_article
-                temp_delete_result = orm_delete_article.delete_article(temp_result['result']['article_id'])
+                temp_delete_result = orm_delete_article.delete_article(temp_result['result'])
                 resp = {'status': 500, 'result': '写入又删除，啥也没干成'}
                 return jsonify(resp)
 

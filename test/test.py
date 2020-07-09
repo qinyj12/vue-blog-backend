@@ -237,6 +237,8 @@
 # 尝试给下一篇博客分配id
 import sys
 sys.path.append('../')
+from sqlalchemy import or_
+from sqlalchemy.sql import exists
 from config import config_test_orm
 
 run_orm = config_test_orm.initialize_orm()
@@ -246,16 +248,30 @@ user = run_orm['dict_user']
 comment = run_orm['dict_comments']
 article = run_orm['dict_Articlelist']
 
-undone_article = session.query(article).filter(article.id != 1)
+undone_article = session.query(article).filter(or_(article.if_done != 1, article.if_done == None))
 done_article = session.query(article).filter_by(if_done = 1)
-def get_last_article():
-    try:
-        latest_article = session.query(article)[-1]
-        return latest_article
-    except:
-# if undone_article.count() <= 1:
-#     print(done_article[0].id)
-#     print(undone_article[0].id + 1)
-print(latest_article.id)
+all_article = session.query(article)
 
+undone_count = undone_article.count()
+all_count = all_article.count()
+done_count = done_article.count()
+
+target = undone_article.one()
+session.delete(target)
+session.commit()
 session.close()
+
+# if done_count == 0:
+#     next_id = 1
+#     new_article = article(id=next_id,title=1,abstract=1,avatar=1,cover=1,time=1,views=0,comments=0,if_done=1)
+#     session.add(new_article)
+
+# elif undone_count == 0:
+#     next_id = done_article[-1].id + 1
+#     new_article = article(id=next_id,title=1,abstract=1,avatar=1,cover=1,time=1,views=0,comments=0,if_done=1)
+#     session.add(new_article)
+
+# else:
+#     next_id = undone_article.first().id
+#     target_article = session.query(article).filter_by(id = next_id)[0]
+#     target_article.if_done = 1
