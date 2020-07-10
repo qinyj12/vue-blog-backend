@@ -27,7 +27,8 @@ def login():
         # 给用户的浏览器session中插入user_name和user_id
         session['user_email'] = temp_result['result']['user_email']
         session['user_id'] = temp_result['result']['user_id']
-
+        # 设置有效期
+        session.permanent=True
         return jsonify(temp_result)
 
     # 如果接口返回的状态不正常,即用户输入email、password不对

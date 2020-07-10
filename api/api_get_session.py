@@ -8,7 +8,8 @@ def get_session():
 
     session_user_id = session.get('user_id')
     session_user_email = session.get('user_email')
-
+    import sys
+    print(session, file=sys.stderr)
     try:
         # 如果成功解析浏览器session
         if session_user_email:

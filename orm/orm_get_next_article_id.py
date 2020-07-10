@@ -27,7 +27,6 @@ def return_next_article_id():
             next_id = undone_article.first().id
             return {'status': 201, 'result': next_id}
         session.close()
-        
     except Exception as e:
         current_app.logger.info(e)
         session.rollback()

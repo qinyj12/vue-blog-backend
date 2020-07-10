@@ -37,27 +37,21 @@ def saveArticle():
         if temp_result['status'] == 200:
             try:
                 # 尝试保存parameter_md为md格式。temp_result['result']就是article的id
-                md_path = current_app.article_path + str(temp_result['result']) + '/md/'
-                md_filename = parameter_title + '.md'
+                md_path = current_app.article_path + str(temp_result['result']) + '/'
+                md_filename = str(temp_result['result']) + '_' + parameter_title + '.md'
                 with open(md_path + md_filename, 'w') as f:
                     f.write(parameter_md)
 
                 # 尝试保存parameter_html为html格式
-                html_path = current_app.article_path + str(temp_result['result']) + '/html/'
-                html_filename = parameter_title + '.html'
+                html_path = current_app.article_path + str(temp_result['result']) + '/'
+                html_filename = str(temp_result['result']) + '_' + parameter_title + '.html'
                 with open(html_path + html_filename, 'w') as f:
                     f.write(parameter_html)
-
-                # 把这个id的记录改成if_done=1
-                # ############################################################
-
-
-
 
                 resp = {'status': 200, 'result': '保存成功'}
                 return jsonify(resp)
 
-            # 如果出错的话，删除数据库记录
+            # 如果出错的话，删除数据库记录，和这个article_id的目录
             except Exception as e:
                 current_app.logger.info(e)
                 from orm import orm_delete_article
