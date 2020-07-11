@@ -17,7 +17,8 @@ def get_user_info(parameter_user_id):
             'result': {
                 'id': target_user.id,
                 'email': target_user.email,
-                'avatar': target_user.avatar
+                'avatar': target_user.avatar,
+                'nickname': target_user.nickname
             }
         }
         return resp
