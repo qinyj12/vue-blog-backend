@@ -19,11 +19,14 @@ def get_comments(article_id):
 
         # 判断参数是否是list，并且只有2个元素
         if isinstance(temp_list, list) and len(temp_list) == 2:
+            # 先找到对应的article
             target_article = session.query(Article_list).filter_by(id = article_id).one()
-            # 调用一对多方法
+            # 然后调用一对多方法，拿到这篇article对应的comments和comments总数
             target_comments = target_article.relate_comments
-            comments_in_range = target_comments[temp_list[0]: temp_list[1]]
-            resp = list(map(
+            # 拿到的结果和list差不多，所以取倒数排序
+            comments_in_range = target_comments[-1-temp_list[0] : -1-temp_list[1]: -1]
+            comments_count = len(target_comments)
+            comments_list = list(map(
                 lambda x:{
                     'comment':x.content, 
                     'time':x.time, 
@@ -32,7 +35,7 @@ def get_comments(article_id):
                 },
                 comments_in_range)
             )
-
+            resp = {'status': 200, 'result': {'count': comments_count, 'commentsList': comments_list}}
             session.close()
             return jsonify(resp)
         else:

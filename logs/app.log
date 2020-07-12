@@ -6,3 +6,6 @@
 2020-07-10 17:06:48,872 - INFO - api_get_comments.py - get_comments - 29 - 'InstrumentedList' object has no attribute 'all'
 2020-07-10 17:10:03,986 - INFO - api_get_comments.py - get_comments - 29 - Object of type Comments is not JSON serializable
 2020-07-10 17:27:48,357 - INFO - api_get_comments.py - get_comments - 40 - name 'user' is not defined
+2020-07-12 10:18:34,163 - INFO - api_get_comments.py - get_comments - 43 - count() takes exactly one argument (0 given)
+2020-07-12 10:57:43,984 - INFO - api_get_comments.py - get_comments - 43 - No row was found for one()
+2020-07-12 12:30:26,101 - INFO - api_get_comments.py - get_comments - 44 - No row was found for one()

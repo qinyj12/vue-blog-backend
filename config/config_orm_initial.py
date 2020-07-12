@@ -42,6 +42,15 @@ def initialize_orm():
         relate_article = relationship('Articlelist', backref='relate_comments')
         relate_user = relationship('User', backref='relate_comments')
 
+    # 留言板表
+    class Board(Base):
+        __tablename__ = 'board'
+        id = Column(Integer, primary_key = True, nullable = False)
+        content = Column(String(20), nullable = False)
+        time = Column(String(20), nullable = False)
+        user_id = Column(Integer, ForeignKey('user.id'))
+        relate_user = relationship('User', backref='relate_board')
+
     # Mailcode表
     class Mailcode(Base):
         __tablename__ = 'mailcode'
@@ -58,6 +67,6 @@ def initialize_orm():
     DBSession = sessionmaker(engine)
     session = DBSession()
 
-    return {'dict_session': session, 'dict_user': User, 'dict_mailcode': Mailcode, 'dict_Articlelist': Articlelist, 'dict_comments': Comments}
+    return {'dict_session': session, 'dict_user': User, 'dict_mailcode': Mailcode, 'dict_Articlelist': Articlelist, 'dict_comments': Comments, 'dict_board': Board}
 
     # return Base.metadata.create_all(engine)
