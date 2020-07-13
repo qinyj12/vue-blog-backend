@@ -9,3 +9,9 @@
 2020-07-12 10:18:34,163 - INFO - api_get_comments.py - get_comments - 43 - count() takes exactly one argument (0 given)
 2020-07-12 10:57:43,984 - INFO - api_get_comments.py - get_comments - 43 - No row was found for one()
 2020-07-12 12:30:26,101 - INFO - api_get_comments.py - get_comments - 44 - No row was found for one()
+2020-07-13 11:32:09,998 - INFO - api_get_board.py - get_board - 40 - count() takes exactly one argument (0 given)
+2020-07-13 11:32:15,695 - INFO - api_get_board.py - get_board - 40 - count() takes exactly one argument (0 given)
+2020-07-13 11:32:49,914 - INFO - api_get_board.py - get_board - 40 - name 'user' is not defined
+2020-07-13 12:56:24,332 - INFO - api_get_board.py - get_board - 41 - No row was found for one()
+2020-07-13 17:14:51,352 - INFO - api_read_article.py - read_article - 19 - list index out of range
+2020-07-13 17:14:51,353 - INFO - api_get_comments.py - get_comments - 44 - No row was found for one()

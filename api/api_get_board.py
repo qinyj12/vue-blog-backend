@@ -6,11 +6,12 @@ from config import config_orm_initial
 orm = config_orm_initial.initialize_orm()
 session = orm['dict_session']
 board = orm['dict_board']
+user = orm['dict_user']
 
 app = Blueprint('api_get_board', __name__)
 
 @app.route('/board', methods = ['POST'])
-def get_board(article_id):
+def get_board():
     board_range = request.form.get('comments_for_single')
     # 尝试把前端传来的参数解析成list
     try:
@@ -21,7 +22,7 @@ def get_board(article_id):
             target_board = session.query(board).all()
             # 取倒序
             board_in_range = target_board[-1-temp_list[0] : -1-temp_list[1]: -1]
-            board_count = len(target_board.count())
+            board_count = len(target_board)
             board_list = list(map(
                 lambda x:{
                     'comment':x.content, 

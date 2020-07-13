@@ -37,7 +37,7 @@ def initialize_orm():
         id = Column(Integer, primary_key = True, nullable = False)
         content = Column(String(20), nullable = False)
         time = Column(String(20), nullable = False)
-        user_id = Column(Integer, ForeignKey('user.id'))
+        user_id = Column(Integer, ForeignKey('user.id'), nullable = False)
         article_id = Column(Integer, ForeignKey('article_list.id'))
         relate_article = relationship('Articlelist', backref='relate_comments')
         relate_user = relationship('User', backref='relate_comments')
