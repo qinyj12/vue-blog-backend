@@ -1,0 +1,7 @@
+gunicorn
+gevent
+flask
+sqlalchemy
+flask_cors
+flask_mail
+datetime

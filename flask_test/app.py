@@ -60,4 +60,4 @@ app.register_blueprint(api_send_board.app)
 
 CORS(app, supports_credentials=True)
 
-app.run(host = '0.0.0.0', port = 5000)
+app.run()
