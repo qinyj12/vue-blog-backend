@@ -12,7 +12,7 @@ def initialize_orm():
         nickname = Column(String(20), nullable = False)
         email = Column(String(20), nullable = False)
         password = Column(String(20), nullable = False)
-        avatar = Column(String(20), nullable = False)
+        avatar = Column(String(20), nullable = True)
         timestamp = Column(Integer, nullable = False)
         format_updated_time = Column(String(20), nullable = True)
         # relate_comments = relationship('Comments', backref='relate_user', lazy='dynamic')

@@ -40,6 +40,7 @@ def sign_up(parameter_name, parameter_email, parameter_password, parameter_code)
 
         # 核实用户输入的验证码和mailcode表里的是否相等——如果能找到相等的，也就是结果不为[]
         if target_code_list:
+            import random
             # 注册用户到user表
             session.add(
                 User(
@@ -47,7 +48,9 @@ def sign_up(parameter_name, parameter_email, parameter_password, parameter_code)
                     email = parameter_email, 
                     password = parameter_password, 
                     timestamp = temp_timestamp, 
-                    format_updated_time = format_timestamp
+                    format_updated_time = format_timestamp, 
+                    # 随机分配头像给用户吧
+                    avatar = 'img/avatar' + str(random.randint(1, current_app.avatarNumber)) + '.png'
                 )
             )
 

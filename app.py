@@ -36,6 +36,8 @@ app.mailcode_too_often = config_mailcode.Config().too_often
 app.article_path = config_mailcode.Config().article_path
 # 引入临时文件夹
 app.temporary_path = config_mailcode.Config().temporary_path
+# 设置一个头像的总数，然后可以给大家分配随机头像
+app.avatarNumber = 10
 
 # 注册蓝图
 app.register_blueprint(api_check_code.app)
@@ -61,5 +63,6 @@ app.register_blueprint(api_send_board.app)
 CORS(app, supports_credentials=True)
 
 if __name__ == "__main__":
-    from waitress import serve
-    serve(app, host="0.0.0.0", port=5000)
+    # from waitress import serve
+    # serve(app, host="0.0.0.0", port=5000)
+    app.run(host = '0.0.0.0', port = 5000)

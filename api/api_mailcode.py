@@ -30,15 +30,10 @@ def send_mail():
     from orm import orm_code
     temp_result = orm_code.save_mail_code(user_mail, user_purpose)
 
-    import sys
-    print('1', file=sys.stderr)
-
     # 如果接口返回的状态正常
     if temp_result['status'] == 200:
-        print('2', file=sys.stderr)
         # 发邮件
         msg.html = render_template('temp_email.html', name = re.split(r'@', user_mail)[0], code = temp_result['result']) # 提取user_mail中@之前的部分
-        print('3', file=sys.stderr)
         try:
             mail.send(msg)
             resp = {
