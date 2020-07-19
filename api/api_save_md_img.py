@@ -9,6 +9,8 @@ app = Blueprint('api_save_md_img', __name__)
 def save_img():
     # 判断是不是管理员（id==1）
     session_user_id = session.get('user_id')
+    import sys
+    print('img: ' + str(session_user_id), file=sys.stderr)
 
     # 如果不是管理员
     if session_user_id != 1:

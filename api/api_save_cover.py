@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from flask import request, Blueprint, jsonify, current_app, session
+from flask import request, Blueprint, jsonify, current_app, session, abort
 import os, shutil, time
 from orm import orm_get_next_article_id
 
@@ -9,6 +9,9 @@ app = Blueprint('api_save_cover', __name__)
 def savecover():
     # 判断是不是管理员（id==1）
     session_user_id = session.get('user_id')
+    import sys
+    print('cover: ' + str(session_user_id), file=sys.stderr)
+
 
     # 如果不是管理员
     if session_user_id != 1:
